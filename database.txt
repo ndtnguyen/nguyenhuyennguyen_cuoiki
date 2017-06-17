@@ -1,0 +1,150 @@
+CREATE TABLE DANHMUC
+(
+	MaDanhMuc int PRIMARY key,
+	TenDanhMuc varCHAR(100)
+);
+
+CREATE TABLE SANPHAM
+(
+	MaSP bigint primary KEY,
+	GiaKhoiDiem int,
+	BuocGia int,
+	DanhMuc int,
+	NguoiDang int,
+	NgayDang datetime,
+	ThoiGianHet datetime,
+	NguoiThangCuoc int,
+	QuanTri int
+);
+
+CREATE TABLE MOTASANPHAM 
+(
+	MaSP bigint,
+	LanMota int,
+	NoiDung varchar(200),
+	NgayDang datetime,
+	primary key (MaSP, LanMoTa)
+);
+
+CREATE TABLE NGUOIDUNG
+(
+	MAKH bigint PRIMARY key,
+	TenKH varchar(100),
+	DiaChi varchar(100),
+	SDT varchar(100),
+	CMND char(15),
+	DiemDanhGia int,
+	LoaiNguoiDung SMALLINT 
+);
+--Loai nguoi dung 0 la duoc ban hang, 1 la chi duoc xem
+
+CREATE TABLE DANHGIANGUOIDUNG
+(
+	ChuTK int ,
+	NguoiDanhGia int,
+	ThoiGian datetime,
+	DiemDangGia int,
+	NoiDung varchar(100),
+	PRIMARY key (ChuTK, NguoiDanhGia)
+);
+
+CREATE TABLE NGUOIDUNGBICAMSP
+(
+	NguoiDung int PRIMARY key,
+	SanPham int,
+	ThoiGian datetime,
+	LyDo varchar(100)
+);
+
+CREATE TABLE NGUOIDUNGDAUGIASP
+(
+	NguoiDung int,
+	SanPham int,
+	Gia int,
+	ThoiGian datetime,
+	PRIMARY key (NguoiDung, SanPham)
+);
+
+CREATE TABLE NGUOIDUNGYEUTHICHSP
+(
+	NguoiDung int,
+	SanPham int,
+	ThoiGian datetime,
+	PRIMARY key (NguoiDung, SanPham)
+);
+
+CREATE TABLE QUANTRI
+(
+	MaQTV int PRIMARY key,
+	ten varchar(100),
+	diaChi varchar(100),
+	CMND char(15),
+	taiKhoan varchar(100),
+	matKhau varchar(100)	
+);
+
+
+ALTER TABLE SANPHAM
+ADD CONSTRAINT sp_danhmuc
+FOREIGN KEY (DanhMuc)
+REFERENCES DANHMUC(MaDanhMuc);
+
+ALTER TABLE SANPHAM 
+ADD CONSTRAINT sp_nguoiDang
+FOREIGN KEY (NguoiDang)
+REFERENCES NGUOIDUNG(MAKH);
+
+ALTER TABLE SANPHAM 
+ADD CONSTRAINT sp_nguoiThangCuoc
+FOREIGN KEY (NguoiThangCuoc)
+REFERENCES NGUOIDUNG(MAKH);
+
+ALTER TABLE SANPHAM 
+ADD CONSTRAINT sp_quanTri
+FOREIGN KEY (QuanTri)
+REFERENCES QUANTRI(MaQTV)
+
+ALTER TABLE MOTASANPHAM 
+ADD CONSTRAINT mt_cuaSanPham
+FOREIGN KEY (MaSP)
+REFERENCES SANPHAM(MaSP);
+
+ALTER TABLE DANHGIANGUOIDUNG
+ADD CONSTRAINT dgnd_DanhGia
+FOREIGN KEY (ChuTk, NguoiDanhGia)
+REFERENCES NGUOIDUNG(MAKH, MAKH);
+
+ALTER TABLE NGUOIDUNGBICAMSP
+ADD CONSTRAINT ndbc_CamSP
+FOREIGN KEY (NguoiDung)
+REFERENCES NGUOIDUNG(MAKH)
+
+ALTER TABLE NGUOIDUNGBICAMSP
+ADD CONSTRAINT ndbc_SanPhamCam
+FOREIGN KEY (SanPham)
+REFERENCES SANPHAM(MaSP)
+
+ALTER TABLE NGUOIDUNGDAUGIASP
+ADD CONSTRAINT nddgsp_NguoiDung
+FOREIGN KEY (NguoiDung)
+REFERENCES NGUOIDUNG(MAKH)
+
+ALTER TABLE NGUOIDUNGDAUGIASP
+ADD CONSTRAINT nddgsp_SanPham
+FOREIGN KEY (SanPham)
+REFERENCES SANPHAM(MaSP)
+
+ALTER TABLE NGUOIDUNGYEUTHICHSP
+ADD CONSTRAINT ndytsp_NguoiDung
+FOREIGN KEY (NguoiDung)
+REFERENCES NGUOIDUNG(MAKH)
+
+ALTER TABLE NGUOIDUNGDAUGIASP
+ADD CONSTRAINT ndytsp_SanPham
+FOREIGN KEY (SanPham)
+REFERENCES SANPHAM(MaSP)
+
+
+
+
+
