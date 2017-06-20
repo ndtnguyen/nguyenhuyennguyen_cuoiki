@@ -17,7 +17,7 @@ exports.loadSanPham = function(maSP) {
        MaSP: maSP
     };
     var sql = mustache.render(
-        'select * from sanpham where MaSP = {{MaSP}}',
+        'select * from sanpham s,motasanpham mt,nguoidung nd where s.MaSP = {{MaSP}} and s.MaSP=mt.MaSP and nd.MaKH=s.NguoiDang',
         obj
     );
     return db.load(sql);
