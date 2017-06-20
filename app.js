@@ -5,8 +5,8 @@ var express = require('express'),
     morgan = require('morgan'),
     path = require('path'),
     wnumb = require('wnumb'),
-    TrangChuController = require('./controllers/TrangChuController');
-    
+    TrangChuController = require('./controllers/TrangChuController'),
+    SanPhamController = require('./controllers/SanPhamController');
 
 var app = express();
 
@@ -40,5 +40,7 @@ app.use(bodyParser.urlencoded({
 
 
 app.use('/', TrangChuController);
+app.use('/sanpham', SanPhamController);
+
 
 app.listen(3000);
