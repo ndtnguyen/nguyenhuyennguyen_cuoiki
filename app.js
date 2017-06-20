@@ -5,6 +5,7 @@ var express = require('express'),
     morgan = require('morgan'),
     path = require('path'),
     wnumb = require('wnumb'),
+    moment = require('moment'),
     TrangChuController = require('./controllers/TrangChuController'),
     SanPhamController = require('./controllers/SanPhamController');
 
@@ -19,7 +20,10 @@ app.engine('hbs', handlebars({
     partialsDir: 'views/_partials/',
     helpers: {
         section: handlebars_sections(),
-        number_format: function (n) {
+        now: function() {
+            return moment().format('D/M/YYYY - HH:mm');
+        },
+        formatNumber: function (n) {
             var nf = wnumb({
                 thousand: ','
             });
