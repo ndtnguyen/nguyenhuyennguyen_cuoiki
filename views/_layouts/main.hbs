@@ -6,34 +6,24 @@
 	<link rel="stylesheet" type="text/css" href="/assests/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/assests/user-defined-dist/style.css">
 	<link rel="stylesheet" type="text/css" href="/assests/user-defined-dist/main.css">
+	{{{_section.css}}}
 </head>
 <body>
 	<div class="container-fluid">
 		{{> header}}
-    <div class="row">
-      <div class="col-sm-0 col-md-1 col-lg-1">&nbsp;</div>
-      <div class="col-sm-0 col-md-10 col-lg-10 content">
-        {{{body}}}
-      </div>
-      <div class="col-sm-0 col-md-1 col-lg-1">&nbsp;</div>
-    </div>
-    {{> footer}} 
-  </div>
-
+		{{> navar}}
+    		<div class="row" style="background-color: #F4F4F4;">
+      			<div class="col-sm-0 col-md-1 col-lg-1">&nbsp;</div>
+      			<div class="col-sm-0 col-md-10 col-lg-10 content">
+        			{{{body}}}
+      			</div>
+      			<div class="col-sm-0 col-md-1 col-lg-1">&nbsp;</div>
+    		</div>
+    		{{> footer}} 
+  	</div>
 	<script type="text/javascript" src="/assests/jquery-3.2.0.min.js"></script>
 	<script type="text/javascript" src="/assests/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/assests/user-defined-dist/main.js"></script>
-  <script type="text/javascript">
-    $(function(){
-    var $select = $("#ngay");
-    for (i=1;i<=31;i++){
-        $select.append($('<option></option>').val(i).html(i))};
-    var $select = $("#thang");
-    for (i=1;i<=12;i++){
-        $select.append($('<option></option>').val(i).html(i))};
-    var $select = $("#thang");
-    for (i=1980;i<=2017;i++){
-        $select.append($('<option></option>').val(i).html(i))};
-    });</script>
+	{{{_section.js}}}
 </body>
 </html>
