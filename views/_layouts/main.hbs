@@ -6,12 +6,13 @@
 	<link rel="stylesheet" type="text/css" href="/assests/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/assests/user-defined-dist/style.css">
 	<link rel="stylesheet" type="text/css" href="/assests/user-defined-dist/main.css">
-	{{{_section.css}}}
+	{{{_sections.css}}}
 </head>
-<body>
+<body style="background-color: #F4F4F4;">
 	<div class="container-fluid">
 		{{> header}}
-		{{> navar}}
+		{{> navbar}}
+		{{{_sections.customnavbar}}}
     		<div class="row" style="background-color: #F4F4F4;">
       			<div class="col-sm-0 col-md-1 col-lg-1">&nbsp;</div>
       			<div class="col-sm-0 col-md-10 col-lg-10 content">
@@ -24,6 +25,6 @@
 	<script type="text/javascript" src="/assests/jquery-3.2.0.min.js"></script>
 	<script type="text/javascript" src="/assests/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/assests/user-defined-dist/main.js"></script>
-	{{{_section.js}}}
+	{{{_sections.js}}}
 </body>
 </html>
