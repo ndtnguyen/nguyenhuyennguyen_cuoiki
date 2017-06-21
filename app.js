@@ -6,6 +6,7 @@ var express = require('express'),
     path = require('path'),
     wnumb = require('wnumb'),
     moment = require('moment'),
+    handleLayout = require('./middle-wares/handleLayout'),
     TrangChuController = require('./controllers/TrangChuController'),
     SanPhamController = require('./controllers/SanPhamController');
 
@@ -42,7 +43,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-
+app.use(handleLayout);
 app.use('/', TrangChuController);
 app.use('/sanpham', SanPhamController);
 
