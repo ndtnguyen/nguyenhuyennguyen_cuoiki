@@ -82,7 +82,7 @@ CREATE TABLE `NGUOIDUNGDAUGIASP`
 	`SanPham` int,
 	`Gia` int,
 	`ThoiGian` datetime,
-	PRIMARY key (`NguoiDung`, `SanPham`)
+	PRIMARY key (`NguoiDung`, `SanPham`, `ThoiGian`)
 );
 
 DROP TABLE IF EXISTS `NGUOIDUNGYEUTHICHSP`;
