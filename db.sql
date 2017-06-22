@@ -116,6 +116,15 @@ CREATE TABLE `NGUOIDUNGXINBAN`
 	PRIMARY KEY(`MaKH`)
 );
 
+DROP TABLE IF EXISTS `AnhNen`;
+CREATE TABLE AnhNen
+(
+	MaAnh int PRIMARY KEY,
+	tinhTrang int, 
+	link varchar(100)
+);
+
+
 /*Đây là khóa ngoại*/
 ALTER TABLE NGUOIDUNGXINBAN
 ADD CONSTRAINT nxdb_KhachHang
