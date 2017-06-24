@@ -3,145 +3,49 @@
 	<div class="col-sm-1 col-md-1 col-lg-1"></div> 
 	<div class="col-sm-2 col-md-2 col-lg-2"> 			
 		<div class="logo">
-      <a href="#">
-				<img src="/imgs/Auction.png"/>	
-      </a>
+      		<a href="/trangchu">
+			<img src="/imgs/Auction.png"/>	
+      		</a>
 		</div>
 	</div>
+	
 	<!--Search input-->
 	<div class="col-sm-4 col-md-4 col-lg-4 TimKiemSP">
 		<div class="input-group">
-     	<input type="text" class="form-control inputext" placeholder="Tìm danh mục, sản phẩm mong muốn.....">
-      <span class="input-group-btn">
-        <button class="btn btn-secondary inputext" type="button">Tìm kiếm</button>
-      </span>
-    </div>
+     			<input type="text" class="form-control inputext" placeholder="Tìm danh mục, sản phẩm mong muốn.....">
+      			<span class="input-group-btn">
+        			<button class="btn btn-secondary inputext" type="button">Tìm kiếm</button>
+      			</span>
+    		</div>
 	</div>
-	<!--Sign up-->
+	
+	<!--Log in/Log out/Register-->
 	<div class="col-sm-1 col-md-1 col-lg-1"></div>
-		<div class="col-sm-1 col-md-1 col-lg-1 EditButtonLogin" >
-			<a href="#" id="btnDangKiChinh">
-        <img src="/imgs/DangKi.png">
-        <div style="color: #fff !important; display: inline-block; font-size: 130%;"> 
-          Đăng kí 
-        </div>
-      </a>
-				
-			<div class="modal fade" tabindex="-1" id ="GiaoDienDangKi" data-keyboard ="false" data-backdrop ="static">
-        <div class="modal-dialog" >
-          <div class="modal-content">
-            <div class="modal-header"> 
-              <!-- *********** ĐĂNG KÍ ***********-->
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title" class= "ThongTinDangKi" ><img src="/imgs/Happy.png"/> Đăng kí tài khoản</h4>
-              <label class= "ThongTinDangKi"> Bạn đã có tài khoản?
-                <button type="button" class="btn btn-primary" id="DangNhapTrongDangKi" >Đăng nhập</button>
-              </label>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label for="AccountEMail" >Email</label>
-                  <input type="text" class="form-control" id="AccountEMail" placeholder="Nhập email"/>
-                </div>
-                <div class="form-group">
-                  <label for="password" class="control-label">Mật khẩu</label>
-                  <input type="text" class="form-control" id="password" placeholder="Nhập mật khẩu">
-                </div>
-                <div class="form-group">
-                  <label for="AccountName" class="control-label">Họ và tên</label>
-                  <input type="text" class="form-control" id="AccountName" placeholder="Nhập họ tên">
-                </div>
-                <div class="form-group">
-                  <label for = "Nam" class="control-label">Giới tính</label>
-                  <label class="radio-inline" id="Nam">
-                    <input type="radio" name="optradio">Nam
-                  </label>
-                  <label class="radio-inline"><input type="radio" name="optradio">Nữ</label>
-                </div>
-                <div class="form-group">
-                  <label for="NgaySinh">Ngày sinh
-                    <select class="form-control" id="ngay"></select>
-                    <select class="form-control" id="thang"></select>
-                    <select class="form-control" id="nam"></select>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <center>
-                    <label class= "ThongTinDangKi">
-                      Khi bạn nhấn Đăng ký, bạn đã đồng ý thực hiện mọi giao dịch đấu giá 
-                      <span id="ChinhSachDauGia">
-                        theo điều kiện sử dụng và chính sách của AUCTION.VN 
-                      </span>
-                    </label>
-                  </center>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <center> 
-                <button type="button" class="btn btn-primary" id="btDangKi" >
-                  Đăng kí
-                </button>
-              </center>
-            </div>
-          </div>
-        </div>
-      </div>
-		</div>
-		<!-- *********************** ĐĂNG NHẬP ******************-->
-		<div class="col-sm-1 col-md-1 col-lg-1 EditButtonLogin">			
-	    <a href="#" id="btnDangNhapChinh"><img src="/imgs/DangNhap.png" /> 
-                <div style="color: #fff !important; display: inline-block; font-size: 130%;">   Đăng nhập 
-                </div> 
-      </a>
-			<div class="modal fade" tabindex="-1" id ="loginModal" data-keyboard ="false" data-backdrop ="static">
-        <div class="modal-dialog" >
-          <div class="modal-content">
-            <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                        <h4 class="modal-title" id="exampleModalLabel"><img src="/imgs/Happy.png"/>Đăng nhập</h4>
-                        <div>
-                        	<span style="padding-left: 35px;">Bạn chưa có tài khoản?</span>
-                             <button type="button" id="btnDangKi">Tạo tài khoản mới</button>
-                          </div>
-            </div>
-            <div class="modal-body">
-                        <form>
-                          <div class="form-group">
-                            <label for="recipient-name" class="control-label">Nhập Email</label>
-                            <input type="text" class="form-control" id="recipient-name"  placeholder="Nhập email"/>
-                          </div>
-                          <div class="form-group">
-                            <label for="password" class="control-label">Mật khẩu</label>
-                            <input type="text" class="form-control" id="password" placeholder="Mật khẩu">
-                          </div>
-
-                          
-                        </form>
-            </div>
-            <div class="modal-footer">
-              <center>
-                <button type="button" class="btn btn-primary" id="btnDangNhap">
-                Đăng nhập
-                </button>
-              </center>
-            </div>
-          </div>
-        </div>
-    </div>
-  </div>
-  <div class=" col-sm-1 col-md-1 col-lg-1 dropdown EditButtonExit" id="btnDangXuatChinh">
-    <button class="dropdown-toggle " type="button" data-toggle="dropdown" id="btnTaiKhoan">
-    	<img src ="/imgs/user.png"/>
-    	4D Group
-    	<span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-    	<li><a href="#">Thông tin cá nhân</a></li>
-    	<li><a href="YeuThich.html">Danh sách sản phẩm yêu thích</a></li>
-    	<li><a href="#" id="btnDangXuat">Đăng xuất</a></li>
-    </ul>
+	<div class="col-sm-4 col-md-4 col-lg-4 " style="padding-top: 15px;" >
+		{{#if layoutVM.isLogged }}
+            	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="font-size: 15pt;
+            text-decoration:none;color: white !important;">
+                	Xin chào <b>{{ layoutVM.curUser.name }}</b> 
+                	<span class="caret"></span>
+            	</a>
+                <ul class="dropdown-menu" style="float: right">
+                    <li><a href="/taikhoan/thongtin">Thông tin cá nhân</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a id="logoutLink" href="javascript:;">Thoát</a></li>
+                </ul>
+    		{{else}}
+            	<a href="/taikhoan/dangnhap" class="EditButtonLogin">
+        		<img src="/imgs/DangNhap.png">
+        		<div style="color: #fff !important; display: inline-block; font-size: 130%;"> 
+          			Đăng nhập
+        		</div>
+      		</a>
+      		<a href="/taikhoan/dangki" class="EditButtonLogin">
+	    		<img src="/imgs/DangKi.png" /> 
+                	<div style="color: #fff !important; display: inline-block; font-size: 130%;">   
+				Đăng kí	
+                	</div> 
+      		</a>	
+    		{{/if}}
 	</div>
 </div>
