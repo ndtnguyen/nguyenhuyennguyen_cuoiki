@@ -6,9 +6,12 @@ var express = require('express'),
     path = require('path'),
     wnumb = require('wnumb'),
     moment = require('moment'),
+    MySQLStore = require('express-mysql-session')(session),
+    session = require('express-session'),
     handleLayout = require('./middle-wares/handleLayout'),
     TrangChuController = require('./controllers/TrangChuController'),
-    SanPhamController = require('./controllers/SanPhamController');
+    SanPhamController = require('./controllers/SanPhamController'),
+    TaiKhoanController = require('./controllers/TaiKhoanController');
 
 var app = express();
 
@@ -43,9 +46,34 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
+// session
+
+app.use(session({
+    secret: 'Z7X7gXzoKBT8h18jwXBEP4T0kJ8=',
+    resave: false,
+    saveUninitialized: true,
+    // store: new fileStore()
+    store: new MySQLStore({
+        host: '127.0.0.1',
+        port: 3306,
+        user: 'root',
+        password: '',
+        database: 'qldg',
+        createDatabaseTable: true,
+        schema: {
+            tableName: 'sessions',
+            columnNames: {
+                session_id: 'session_id',
+                expires: 'expires',
+                data: 'data'
+            }
+        }
+    }),
+}));
+
 app.use(handleLayout);
 app.use('/', TrangChuController);
 app.use('/sanpham', SanPhamController);
-
+app.use('/taikhoan', TaiKhoanController);
 
 app.listen(3000);
