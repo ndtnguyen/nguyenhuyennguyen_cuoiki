@@ -1,0 +1,96 @@
+{{#section 'css'}}
+<style type="text/css">
+    #SPtheoDM {
+        margin-top: 30px;
+        background-color: white;
+        margin-bottom: 20px;
+        height: 50px;
+        text-align: center;
+        padding-top: 15px;
+    }
+    .thumbnail {
+        border: none !important;
+    }
+    .thumbnail .imgSP {
+        width: 150px;
+        height: 150px;
+    }
+</style>
+{{/section}}
+
+{{#section 'customnavbar'}}
+<div class="row" id="SPtheoDM">
+    <div class="col-sm-0 col-md-1 cold-lg-1">&nbsp;</div>
+    <div class="col-sm-2 col-md-2 cold-lg-2">
+        <a href="#">ĐANG ĐẤU GIÁ</a>
+    </div>
+    <div class="col-sm-2 col-md-2 cold-lg-2">
+        <a href="#">MỚI KẾT THÚC</a>
+    </div>
+    <div class="col-sm-2 col-md-2 cold-lg-2">
+        <a href="#">KẾT QUẢ</a>
+    </div>
+    <div class="col-sm-0 col-md-1 cold-lg-1">&nbsp;</div>
+
+</div>
+
+{{/section}}
+
+{{#if isEmpty }}
+    Không có sản phẩm!
+{{else}}
+    <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: #189eff; color: white; font-size: 18px;font-weight: normal;line-height: 15px;">
+                Tên danh mục
+            </div>
+            <div class="panel-body">
+                {{#each sanpham}}
+                <div class="col-md-3">
+                    <a href="/sanpham/chitiet/{{MaSP}}">
+                        <div class="thumbnail ">
+                            <img src="/Imgs/sanpham/{{MaSP}}/1.jpg" title="{{TenSP}}" class="imgSP" />
+                            <div class="caption">
+                                <a href="/sanpham/chitiet/{{MaSP}}" class="TenSanPham">     
+                                    {{TenSP}}
+                                </a>
+                                <p style="color: red;"><b>{{GiaKhoiDiem}} đ</b></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {{#if showPrevPage}}
+                <li>
+                    <a href="?page={{prevPage}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {{/if}}
+            {{#each pages }}
+                {{#if isActive }}
+                    <li class="active">
+                        <a href="?page={{pageValue}}">{{pageValue}}</a>
+                    </li>
+                {{else}}
+                    <li>
+                        <a href="?page={{pageValue}}">{{pageValue}}</a>
+                    </li>
+                {{/if}}
+            {{/each}}
+            {{#if showNextPage }}
+                <li>
+                    <a href="?page={{nextPage}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    </nav>
+    
+
+    
+{{/if}}
