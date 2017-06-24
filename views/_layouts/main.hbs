@@ -9,6 +9,8 @@
 	{{{_sections.css}}}
 </head>
 <body style="background-color: #F4F4F4;">
+	<form id="frmLogout" method="post" action="/taikhoan/dangxuat"></form>
+      
 	<div class="container-fluid">
 		{{> header}}
 		{{> navbar}}
@@ -25,6 +27,11 @@
 	<script type="text/javascript" src="/assests/jquery-3.2.0.min.js"></script>
 	<script type="text/javascript" src="/assests/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/assests/user-defined-dist/main.js"></script>
+	<script type="text/javascript">
+            $('#logoutLink').on('click', function () {
+                $('#frmLogout').submit();
+            });
+        </script>
 	{{{_sections.js}}}
 </body>
 </html>
