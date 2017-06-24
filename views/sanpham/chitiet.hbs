@@ -17,7 +17,39 @@
 		margin-top: 50px;
 		margin-bottom: 50px;
 	}
+	#addresslink {
+            padding-left: 10px; 
+            color: blue;  
+            background-color: #EFEFEF;"
+            border: 1px solid;
+    }
 </style>
+{{/section}}
+
+{{#section 'js'}}
+    <script src="/assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script type="text/javascript">
+        $('#txtQ').TouchSpin({
+            min: 1,
+            max: 50,
+            verticalButtons: true
+        });
+    </script>
+{{/section}}
+
+{{#section 'customnavbar'}}
+{{#each sanpham}}
+<div class="row" id="addresslink">
+    <div class="col-sm-0 col-md-1 col-lg-1"></div>
+    <div class="col-sm-12 col-md-11 col-lg-11">
+        <a href="/trangchu" class="linknav">Trang chủ </a>
+            <img src="/imgs/right-arrow.png" >
+            <a href="/danhmuc/{{DanhMuc}}" class="linknav">Điện gia dụng - Điện lạnh</a>
+            <img src="/imgs/right-arrow.png" >
+        <a href="/product/detail/{{MaSP}}" class="linknav">{{TenSP}}</a>
+    </div>
+</div>
+{{/each}}
 {{/section}}
 
 <div class="row detail-content">
@@ -32,20 +64,21 @@
 		  	</ol>
 		  	
 		  	<!-- Wrapper for slides -->
+			{{#each sanpham }}
 		  	<div class="carousel-inner">
-		    	<div class="item active">
-		      		<img src="/imgs/sanpham/{{sanpham.0.MaSP}}/1.jpg">
-		    	</div>
-
-		    	<div class="item">
-		      		<img src="/imgs/sanpham/{{sanpham.0.MaSP}}/2.jpg">
-		    	</div>
+				<div class="item active">
+					<img src="/imgs/sanpham/{{MaSP}}/1.jpg">
+				</div>
 
 				<div class="item">
-		      		<img src="/imgs/sanpham/{{sanpham.0.MaSP}}/3.jpg" >
-		    	</div>
+					<img src="/imgs/sanpham/{{MaSP}}/2.jpg">
+				</div>
+
+					<div class="item">
+					<img src="/imgs/sanpham/{{MaSP}}/3.jpg" >
+				</div>
 		  	</div>
-		  		
+		  	{{/each}} 	
 		  	<!-- Left and right controls -->
 		  	<a class="left carousel-control" href="#myCarousel" data-slide="prev">
 		    	<span class="glyphicon glyphicon-chevron-left"></span>
@@ -61,36 +94,47 @@
 	<div class="col-sm-7 col-md-7 col-lg-7">
 		<!--Tên sản phẩm-->
 		<div class="row">
-				<h1><b>{{sanpham.0.TenSP}}</b></h1>
-				<hr>
+			{{#each sanpham}}
+                	<h1><b>{{TenSP}}</b></h1>
+                	<hr>
+                	{{/each}}
 		</div>
 			
 		<!--Thông tin chi tiết-->
 		<div class="row">
 			<!--Thông tin đấu giá-->
 			<div class="col-sm-12 col-md-6 col-lg-6" style="line-height: 30px;"> 
-				<b>Người bán:</b> 
-				<a href="#">{{sanpham.0.TenKH}}</a>
-				<div style="color: red; font-weight:bold"> 
-					Giá bán: {{formatNumber sanpham.0.GiaKhoiDiem}}
-				</div>
-				Ngày đăng: {{now sanpham.0.NgayDang}}
+				{{#each nguoiban}}
+                		<b>Người bán:</b> <a href="#">{{Username}}</a>
+                		{{/each}}
 				<br>
-				Ngày hết hạn: {{now sanpham.0.ThoiGianHet}}
+				{{#each sanpham}}
+				<b>Giá bán:</b> 
+				<span style="color: red; font-weight:bold"> 
+                        		{{formatNumber GiaKhoiDiem}}
+                    		</span>
+                		<br>
+				Ngày đăng: {{now NgayDang}}
 				<br>
-				<div id="deadline">Deadline</div>
+				Ngày hết hạn: {{now ThoiGianHet}}
+				{{/each}}
+				
 			</div>
 				
 			<!--Thông tin chi tiết sản phẩm-->
-			<div class="col-md-6 hihi">
+			<div class="col-md-6">
+				<div style="font-weight: bold; font-size: 15pt;margin-bottom: 5px;">
+					Thông tin sản phẩm 
+				</div>
 				<ul>
-					{{#each sanpham}}
+					{{#each mota}}
 					<li>{{NoiDung}}</li>
 					{{/each}}
 				</ul>
 			</div>
 		</div>
-			<!--Input đấu giá-->
+		<!--Input đấu giá-->
+		{{#if layoutVM.isLogged}}
 		<div class="row" >
 			<form>
 				<div class="form-group">
@@ -102,6 +146,7 @@
 				</div>	
 			</form>	
 		</div>
+		{{/if}}
 	</div>
 </div>
 
