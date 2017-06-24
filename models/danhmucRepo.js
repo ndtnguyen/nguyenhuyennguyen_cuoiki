@@ -3,7 +3,11 @@ var mustache = require('mustache'),
     db = require('../fn/db');
 
 exports.loadAll = function() {
+    var deferred = q.defer();
     var sql = 'select * from danhmuc';
-    return db.load(sql);
+    db.load(sql).then(function(rows) {
+        deferred.resolve(rows);
+    });
+    return deferred.promise;
 }
 
