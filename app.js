@@ -12,7 +12,8 @@ var express = require('express'),
     TrangChuController = require('./controllers/TrangChuController'),
     SanPhamController = require('./controllers/SanPhamController'),
     TaiKhoanController = require('./controllers/TaiKhoanController');
-
+var NguoiMuaController = require('./controllers/NguoiMuaController');
+var NguoiBanController = require('./controllers/NguoiBanController');
 var app = express();
 
 app.use(morgan('dev'));
@@ -75,5 +76,6 @@ app.use(handleLayout);
 app.use('/', TrangChuController);
 app.use('/sanpham', SanPhamController);
 app.use('/taikhoan', TaiKhoanController);
-
+app.use('/nguoimua', NguoiMuaController);
+app.use('/nguoiban',  NguoiBanController);
 app.listen(3000);
