@@ -1,0 +1,104 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/assets/dist/css/swiper.min.css">
+    <link href="/assets/site.css" rel="stylesheet" />
+    <style>
+    
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    #Infor {
+        margin-top: 40px;
+        
+    }
+    .inforL{
+        background:#189eff;
+    }
+    .title{
+        font-size:16px;
+        color: #ffffff;
+    }
+    #nameUser{
+        color: #ffffff;
+    }
+    </style>
+{{/section}}
+{{#if layoutVM.isLogged }}
+<div class="row">
+     <div class="col-md-3">
+        {{> nguoimua this }}
+    </div>
+    <br><br>
+    <div  class="col-md-9">
+		<div class="panel panel-default">
+            <div class="panel-heading" style="background-color: #189eff; color: white; font-size: 18px;font-weight: normal;line-height: 15px;">
+                Danh sách sản phẩm đã thắng
+            </div>
+            <div class="panel-body">
+                {{#if isEmpty }}
+                    Không có sản phẩm!
+                            {{else}}
+                    {{#each sanpham}}
+                    <div class="col-md-4">
+                        <a href="/sanpham/chitiet/{{MaSP}}">
+                            <div class="thumbnail ">
+                                <img src="/Imgs/sanpham/{{MaSP}}/1.jpg" title="{{TenSP}}" class="imgSP" />
+                                <center>
+                                    <div class="caption">
+                                        <a href="/sanpham/chitiet/{{MaSP}}" class="TenSanPham">     
+                                            {{TenSP}}
+                                        </a>
+                                        <p style="color: red;"><b>{{GiaKhoiDiem}} đ</b></p>
+                                    </div>
+                                </center>
+                            </div>
+                        </a>
+                    </div>
+                    {{/each}}
+                    </div>
+                    <center>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                {{#if showPrevPage}}
+                                    <li>
+                                        <a href="?page={{prevPage}}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                {{/if}}
+                                {{#each pages }}
+                                    {{#if isActive }}
+                                        <li class="active">
+                                            <a href="?page={{pageValue}}">{{pageValue}}</a>
+                                        </li>
+                                    {{else}}
+                                        <li>
+                                            <a href="?page={{pageValue}}">{{pageValue}}</a>
+                                        </li>
+                                    {{/if}}
+                                {{/each}}
+                                {{#if showNextPage }}
+                                    <li>
+                                        <a href="?page={{nextPage}}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                {{/if}}
+                            </ul>
+                        </nav>    
+                    </center>      
+                {{/if}}
+            
+        </div>
+    </div>
+</div>
+<br>
+<br>
+{{else}}
+	<li><a href="/taikhoan/dangnhap">Đăng nhập</a></li>
+	<li><a href="/taikhoan/dangki">Đăng ký</a></li>
+{{/if}}
