@@ -1,0 +1,59 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/assets/dist/css/swiper.min.css">
+    <link href="/assets/site.css" rel="stylesheet" />
+    <style>
+    
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    #Infor {
+        margin-top: 40px;
+        
+    }
+    .inforL{
+        background:#189eff;
+    }
+    .title{
+        font-size:16px;
+        color: #ffffff;
+    }
+    #nameUser{
+        color: #ffffff;
+    }
+    </style>
+{{/section}}
+{{#section 'js'}}
+    <script src="/assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/assets/jquery-validation-1.12.0/jquery.validate.min.js"></script>   
+    <script type="text/javascript">
+    </script>
+{{/section}}
+
+{{#if layoutVM.isLogged }}
+<div class="row">
+     <div class="col-md-3">
+        {{> nguoimua this }}
+    </div>
+    <br><br>
+    <div  class="col-md-9">
+		<div class="panel panel-default">
+            {{#if showError }}
+                <div class="alert alert-warning alert-dismissible detail-content" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Thông báo!</strong> {{ errorMsg }}
+                </div>
+            {{/if}}
+        </div>  	
+    </div>
+</div>
+<br>
+<br>
+{{else}}
+	<li><a href="/taikhoan/dangnhap">Đăng nhập</a></li>
+	<li><a href="/taikhoan/dangki">Đăng ký</a></li>
+{{/if}}
