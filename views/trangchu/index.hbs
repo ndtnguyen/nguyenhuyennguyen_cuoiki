@@ -1,0 +1,300 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/assets/dist/css/swiper.min.css">
+    <style>
+    
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    .thumbnail{    
+    border: 0px solid #ffffff !important;
+    }
+    .swiper-container {
+        width: 100%;
+        height: 400px;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        width: 320px !important;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;}
+ </style>
+
+{{/section}}
+{{#section 'js'}}
+<!-- Swiper JS -->
+    <script src="/assets/dist/js/swiper.min.js"></script>
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        slidesPerView: 4,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        spaceBetween: 5
+    });
+    </script>
+    <script type="text/javascript">
+      $('#anh1').addClass('active');
+    </script>
+{{/section}}
+
+<br>
+ <div class="row">
+     <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading" id ="danhmucsanpham">Danh mục sản phẩm</div>
+                <div class="list-group">
+				{{#each layoutVM.danhmuc}}
+                    <a href="/sanpham/theodanhmuc/{{MaDanhMuc}}" class="list-group-item">
+                    <img src="{{link}}"> {{TenDanhMuc}}</a>
+                {{/each}}
+                </div>
+            </div>                
+        </div>
+           <!-- Form -->
+        <div  class="col-md-9" id = "showImg" >
+                        
+                 <div class="container1">
+                  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:100%; height: 355px;">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                      <li data-target="#myCarousel" data-slide-to="1"></li>
+                      <li data-target="#myCarousel" data-slide-to="2"></li>
+                      <li data-target="#myCarousel" data-slide-to="3"></li>
+                      <li data-target="#myCarousel" data-slide-to="4"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                      
+                       {{#each an}}
+
+                         <div class="item" id="anh{{MaAnh}}">
+                          <img src="{{link}}" alt="Quảng cáo {{MaAnh}}" style="width:100%; height: 355px;" >
+                         </div>
+                       {{/each}}
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                      <span class="glyphicon glyphicon-chevron-left"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                      <span class="glyphicon glyphicon-chevron-right"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+                    </div>
+        </div><!-- end show image-->
+            <div class="col-md-1"></div>
+    </div>
+    <br> <br>
+
+    <div class="row">
+              <div class="panel panel-default">
+                          <div class="panel-heading heading" style="background-color: #189eff; color: white; font-size: 18px;font-weight: normal;line-height: 15px; vertical-align: middle;">5 SẢN PHẨM ĐƯỢC RA GIÁ NHIỀU NHẤT
+                          </div> 
+                          <div class="panel-body">
+                              <div class="swiper-container">
+                                  <div class="swiper-wrapper">
+                                  {{#each top5NhieuNhat}}
+                                    <a href="/sanpham/chitiet/{{MaSP}}" class="TenSanPham">
+                                      <div class="swiper-slide">
+                                          <div class="thumbnail">
+                                           <center> 
+                                             <img src="/imgs/sanpham/{{MaSP}}/1.jpg" alt="...">
+                                              <div class="caption">
+                                                       {{TenSP}}       
+                                                 <br/>Giá hiện tại: <p>{{GiaHienTai}}</p>
+                                                  <div class="clockdiv" id="clock11">
+                                                          <img src ="/imgs/Time.png" alt="Thời gian đấu giá"/>
+                                                          <div>
+                                                            <span class="days"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="hours"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="minutes"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="seconds"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                   </div>
+
+                                                  <div class="Time">
+                                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ngày</div>
+                                                        <div>&nbsp;Giờ</div>
+                                                        <div>&nbsp;Phút</div>
+                                                        <div>Giây</div>   
+                                                  </div>
+                                                 Tổng số lượt: {{SoLuotDat}}
+                                              </div>
+                                           </center>
+                                          </div>
+                                      </div>
+                                      </a>
+                                      {{/each}}
+                              </div>
+                              <!-- Add Pagination -->
+                              <div class="swiper-pagination"></div>
+                              <!-- Add Arrows -->
+                              <div class="swiper-button-next"></div>
+                              <div class="swiper-button-prev"></div>
+                              </div>            
+                           </div>
+              </div>
+    </div>
+     <br/> 
+
+
+     <div class="row">
+              <div class="panel panel-default">
+                          <div class="panel-heading heading" style="background-color: #189eff; color: white; font-size: 18px;font-weight: normal;line-height: 15px; vertical-align: middle;">5 SẢN PHẨM CÓ GIÁ CAO NHẤT
+                          </div> 
+                          <div class="panel-body">
+                              <div class="swiper-container">
+                                  <div class="swiper-wrapper">
+                                  {{#each top5CaoNhat}}
+                                  <a href="#" class="TenSanPham">
+                                      <div class="swiper-slide">
+                                          <div class="thumbnail">
+                                           <center> 
+                                             <img src="/imgs/5.jpg" alt="...">
+                                              <div class="caption">
+                                                       {{TenSP}}
+                                                  <p>{{GiaHienTai}}</p>
+                                                  <div class="clockdiv" id="clock11">
+                                                          <img src ="imgs/Time.png" alt="Thời gian đấu giá"/>
+                                                          <div>
+                                                            <span class="days"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="hours"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="minutes"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="seconds"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                   </div>
+
+                                                  <div class="Time">
+                                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ngày</div>
+                                                        <div>&nbsp;Giờ</div>
+                                                        <div>&nbsp;Phút</div>
+                                                        <div>Giây</div>   
+                                                  </div>
+                                                  <div class="NhapGiaVaDauGia">
+                                                        <div><input type="text" class="form-control GiaSanPham" value="21.605.000"/> </div>
+                                                        <div><button type="button" class="btn btn-primary DoiGiaSanPham">ĐẤU GIÁ</button></div>
+                                                  </div>
+                                              </div>
+                                           </center>
+                                          </div>
+                                      </div>
+                                      </a>
+                                      {{/each}}
+                              </div>
+                              <!-- Add Pagination -->
+                              <div class="swiper-pagination"></div>
+                              <!-- Add Arrows -->
+                              <div class="swiper-button-next"></div>
+                              <div class="swiper-button-prev"></div>
+                              </div>            
+                           </div>
+              </div>
+    </div>
+     <br/> 
+     <div class="row">
+              <div class="panel panel-default">
+                          <div class="panel-heading heading" style="background-color: #189eff; color: white; font-size: 18px;font-weight: normal;line-height: 15px; vertical-align: middle;">5 SẢN PHẨM GẦN KẾT THÚC
+                          </div> 
+                          <div class="panel-body">
+                              <div class="swiper-container">
+                                  <div class="swiper-wrapper">
+                                  {{#each top5SapHet}}
+                                  <a href="#" class="TenSanPham">
+                                      <div class="swiper-slide">
+                                          <div class="thumbnail">
+                                           <center> 
+                                             <img src="img/LaptopThietBiIT/5.jpg" alt="...">
+                                              <div class="caption">
+                                                       {{TenSP}}
+                                                  <p>{{GiaHienTai}}</p>
+                                                  <div class="clockdiv" id="clock11">
+                                                          <img src ="img/Time.png" alt="Thời gian đấu giá"/>
+                                                          <div>
+                                                            <span class="days"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="hours"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="minutes"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="seconds"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                   </div>
+
+                                                  <div class="Time">
+                                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ngày</div>
+                                                        <div>&nbsp;Giờ</div>
+                                                        <div>&nbsp;Phút</div>
+                                                        <div>Giây</div>   
+                                                  </div>
+                                                  <div class="NhapGiaVaDauGia">
+                                                        <div><input type="text" class="form-control GiaSanPham" value="21.605.000"/> </div>
+                                                        <div><button type="button" class="btn btn-primary DoiGiaSanPham">ĐẤU GIÁ</button></div>
+                                                  </div>
+                                              </div>
+                                           </center>
+                                          </div>
+                                      </div>
+                                      </a>
+                                      {{/each}}
+                              </div>
+                              <!-- Add Pagination -->
+                              <div class="swiper-pagination"></div>
+                              <!-- Add Arrows -->
+                              <div class="swiper-button-next"></div>
+                              <div class="swiper-button-prev"></div>
+                              </div>            
+                           </div>
+              </div>
+    </div>
+     <br/>
