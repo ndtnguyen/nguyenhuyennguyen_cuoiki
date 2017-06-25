@@ -1,6 +1,6 @@
-var mustache = require('mustache'),
-    db = require('../fn/db'),
-    Q = require('q');
+var Q = require('q');
+var mustache = require('mustache');
+var db = require('../fn/db');
 
 exports.loadPageByCat = function(id, limit, offset) {
 
@@ -31,7 +31,90 @@ exports.loadPageByCat = function(id, limit, offset) {
     return deferred.promise;
 }
 
+exports.loadPageByUser = function(id, limit, offset) {
+
+    var deferred = Q.defer();
+
+    var promises = [];
+
+    var view = {
+        id: id,
+        limit: limit,
+        offset: offset
+    };
+
+    var sqlCount = mustache.render('select count(*) as total from sanpham where NguoiThangCuoc = {{id}}', view);
+    promises.push(db.load(sqlCount));
+
+    var sql = mustache.render('select * from sanpham where NguoiThangCuoc = {{id}} limit {{limit}} offset {{offset}}', view);
+    promises.push(db.load(sql));
+
+    Q.all(promises).spread(function(totalRow, rows) {
+        var data = {
+            total: totalRow[0].total,
+            list: rows
+        }
+        deferred.resolve(data);
+    });
+
+    return deferred.promise;
+}
+exports.loadPageByUserFavorite = function(id,limit, offset) {
+
+    var deferred = Q.defer();
+
+    var promises = [];
+
+    var view = {
+        id: id,
+        limit: limit,
+        offset: offset
+    };
+     var sqlCount = mustache.render('select count(*) as total from sanpham s, nguoidungyeuthichsp ng where ng.NguoiDung = {{id}} and ng.SanPham = s.MaSP', view);
+    promises.push(db.load(sqlCount));
+   var sql = mustache.render('select * from sanpham s,nguoidungyeuthichsp ng where ng.NguoiDung = {{id}} and ng.SanPham = s.MaSP limit {{limit}} offset {{offset}}', view);
+    promises.push(db.load(sql));
+
+    Q.all(promises).spread(function(totalRow, rows) {
+        var data = {
+            total: totalRow[0].total,
+            list: rows
+        }
+        deferred.resolve(data);
+    });
+    return deferred.promise;
+}
+exports.loadPageByUserToAuction = function(id,limit, offset) {
+
+    var deferred = Q.defer();
+
+    var promises = [];
+
+    var view = {
+        id: id,
+        limit: limit,
+        offset: offset
+    };
+     var sqlCount = mustache.render('select count(*) as total from sanpham s, nguoidungdaugiasp ng where ng.NguoiDung = {{id}} and s.NguoiThangCuoc = 0 and ng.SanPham = s.MaSP', view);
+    promises.push(db.load(sqlCount));
+   var sql = mustache.render('select * from sanpham s,nguoidungdaugiasp ng where ng.NguoiDung = {{id}} and s.NguoiThangCuoc = 0 and ng.SanPham = s.MaSP limit {{limit}} offset {{offset}}', view);
+    promises.push(db.load(sql));
+
+    Q.all(promises).spread(function(totalRow, rows) {
+        var data = {
+            total: totalRow[0].total,
+            list: rows
+        }
+        deferred.resolve(data);
+    });
+    return deferred.promise;
+}
+
+
+
+
 exports.loadAllByCat = function(id) {
+
     var deferred = Q.defer();
 
     var sql = 'select * from sanpham where DanhMuc = ' + id;
@@ -43,6 +126,7 @@ exports.loadAllByCat = function(id) {
 }
 
 exports.loadDetail = function(id) {
+
     var deferred = Q.defer();
 
     var promises = [];
