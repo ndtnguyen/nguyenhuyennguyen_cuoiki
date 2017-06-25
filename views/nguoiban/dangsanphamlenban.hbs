@@ -1,0 +1,212 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/assets/dist/css/swiper.min.css">
+    <link href="/assets/site.css" rel="stylesheet" />
+    <style>
+    
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    #Infor {
+        margin-top: 40px;
+        
+    }
+    .inforL{
+        background:#189eff;
+    }
+    .title{
+        font-size:16px;
+        color: #ffffff;
+    }
+    #nameUser{
+        color: #ffffff;
+    }
+    </style>
+{{/section}}
+{{#section 'js'}}
+    <script src="/assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/assets/jquery-validation-1.12.0/jquery.validate.min.js"></script>   
+    <script type="text/javascript">
+            $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            });
+         $('#frmAddNewProduct').validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                cost: {
+                    required: true,
+                },
+                step: {
+                    required: true,
+                },
+                describe: {
+                    required: true,
+                },
+                timetodie: {
+                    required: true,
+                },
+            },
+            
+            messages: {
+                username: {
+                    required: 'Vui lòng nhập username.'
+                },
+                cost: {
+                    required: 'Vui lòng nhập giá khởi điểm',
+                    
+                },
+                name: {
+                    required: 'Vui lòng nhập tên sản phẩm'
+                },
+                step: {
+                    required: 'Vui lòng nhập bước giá',
+                    
+                },
+                describe: {
+                    required: 'Vui lòng nhập thông tin về mô tả sản phẩm'
+                },
+                 timetodie: {
+                    required: 'Vui lòng chọn thời gian hết hạn'
+                },
+            },
+
+            errorElement: 'span',
+            errorClass: 'help-block',
+
+            highlight: function (element) {
+                $(element)
+                    .closest('.form-group')
+                    .addClass('has-error');
+            },
+
+            success: function (label) {
+                $(label)
+                    .closest('.form-group')
+                    .removeClass('has-error');
+
+                label.remove();
+            },
+         });
+
+
+    </script>
+{{/section}}
+{{#if layoutVM.isLogged }}
+<div class="row">
+     <br><br>
+     <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: #189eff; color: white; font-size: 18px;font-weight: normal;line-height: 15px;">
+                Danh mục
+            </div>
+            <div class="panel-body">
+               {{> nguoiban this }}
+            </div>
+        </div>
+    
+    </div>
+    <div  class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: #189eff; color: white; font-size: 18px;font-weight: normal;line-height: 15px;">
+                Đăng sản phẩm lên bán
+            </div>
+            <div class="panel-body">
+                   <center> <h2> THÔNG TIN SẢN PHẨM </h2></center>
+                        <br></br>
+                        {{#if showError }}
+                            <div class="alert alert-warning alert-dismissible detail-content" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Warning!</strong> {{ errorMsg }}
+                            </div>
+                        {{/if}}
+                        <form class="form-horizontal" method="post" action="" id="frmAddNewProduct">
+                            <div class="form-group">
+                                <label for="txtProductName" class="col-sm-3 col-md-3 col-lg-3 control-label">Tên sản phẩm</label>
+                                <div class="col-sm-6 ">
+                                    <input type="hidden" class="form-control" id="UserID" name="id" value="{{ layoutVM.curUser.id }}"/>
+                                    <input type="text" class="form-control" id="txtProName" placeholder= "Nhập tên sản phẩm" name="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtCostProduct" class="col-sm-3 col-md-3 col-lg-3 control-label">Giá khởi điểm</label>
+                                <div class="col-sm-6 ">
+                                    <input type="number" min = "100" class="form-control" id="txtCost" placeholder= "Nhập giá khởi điểm" name="cost">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtImage" class="col-sm-3 col-md-3 col-lg-3 control-label">Chọn ảnh đại diện cho sản phẩm</label>
+                                <div class="col-sm-6 ">
+                                    <input type="file" class="form-control" id="txtImage" name="image">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtStep" class="col-sm-3 col-md-3 col-lg-3 control-label">Chọn bước giá</label>
+                                <div class="col-sm-6 ">
+                                 <input type="number" name="step" min="10000" max="1000000" id="txtStep" name="step" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtCostToBuy" class="col-sm-3 col-md-3 col-lg-3 control-label">Giá mua ngay (nếu cần)</label>
+                                <div class="col-sm-6 ">
+                                    <input type="number" class="form-control" min = "0" id="txtCostToBuy" name="costtobuy">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtType" class="col-sm-3 col-md-3 col-lg-3 control-label">Loại danh mục </label>
+                                <div class="col-sm-6 ">
+                                    <input type="hidden" name="type" id="txtType" value ={{layoutVM.mamucdautien}}>
+
+                                    <select class="form-control" id="selectCategory">
+                                        {{#each layoutVM.danhmuc }}
+                                        <option value="{{MaDanhMuc}}"> {{TenDanhMuc}}</option>
+                                       {{/each}}
+                                      </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtTime" class="col-sm-3 col-md-3 col-lg-3 control-label">Thời gian đăng</label>
+                                <div class="col-sm-6 ">
+                                    <input type="text" class="form-control datepicker" value = "{{now}}" name="time" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDOB" class="col-sm-3 col-md-3 col-lg-3 control-label">Thời gian hết hạn</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control datepicker" id="txtDOB" placeholder="d/m/yyyy" name="timetodie">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDescribe" class="col-sm-3 col-md-3 col-lg-3 control-label">Mô tả sản phẩm</label>
+                                <div class="col-sm-6 ">
+                                    <textarea rows="4" cols="63" name="describe" form="frmAddNewProduct"></textarea>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                 <div class="form-group">
+                                    <div class="col-sm-offset-5 col-sm-10">
+                                        <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-check"></i>
+                                            Đăng
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                       </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+{{else}}
+    <li><a href="/taikhoan/dangnhap">Đăng nhập</a></li>
+    <li><a href="/taikhoan/dangki">Đăng ký</a></li>
+{{/if}}
