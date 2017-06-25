@@ -3,6 +3,7 @@ var nguoimua = require('../models/nguoimua');
 var crypto = require('crypto');
 var moment = require('moment');
 var restrict = require('../middle-wares/restrict');
+var sanpham = require('../models/sanphamRepo');
 var r = express.Router();
 var taikhoanRepo = require('../models/taikhoanRepo');
 r.get('/profile', function(req, res) {
@@ -36,5 +37,149 @@ r.post('/chinhsuathongtincanhan', function(req, res) {
         showError: true,
         errorMsg: 'Cập nhật thông tin thành công!!!!'
     });
+});
+
+r.get('/danhsachsanphamdathang', function(req, res) {
+    console.log("-------------------------");
+    console.log(req.body);
+   var rec_per_page = 4;
+    var curPage = req.query.page ? req.query.page : 1;
+    var offset = (curPage - 1) * rec_per_page;
+
+    sanpham.loadPageByUser(37, rec_per_page, offset)
+        .then(function(data) {
+
+            var number_of_pages = data.total / rec_per_page;
+            if (data.total % rec_per_page > 0) {
+                number_of_pages++;
+            }
+
+            var pages = [];
+            for (var i = 1; i <= number_of_pages; i++) {
+                pages.push({
+                    pageValue: i,
+                    isActive: i === +curPage
+                });
+            }
+
+            res.render('nguoimua/danhsachsanphamdathang', {
+                layoutVM: res.locals.layoutVM,
+                sanpham: data.list,
+                isEmpty: data.total === 0,
+                pages: pages,
+                curPage: curPage,
+                prevPage: curPage - 1,
+                nextPage: curPage + 1,
+                showPrevPage: curPage > 1,
+                showNextPage: curPage < number_of_pages - 1,
+            });
+        });
+
+});
+r.post('/danhsachsanphamdathang', function(req, res) {
+   var rec_per_page = 4;
+    var curPage = req.query.page ? req.query.page : 1;
+    var offset = (curPage - 1) * rec_per_page;
+
+    sanpham.loadPageByUser(req.body.id, rec_per_page, offset)
+        .then(function(data) {
+
+            var number_of_pages = data.total / rec_per_page;
+            if (data.total % rec_per_page > 0) {
+                number_of_pages++;
+            }
+
+            var pages = [];
+            for (var i = 1; i <= number_of_pages; i++) {
+                pages.push({
+                    pageValue: i,
+                    isActive: i === +curPage
+                });
+            }
+
+            res.render('nguoimua/danhsachsanphamdathang', {
+                layoutVM: res.locals.layoutVM,
+                sanpham: data.list,
+                isEmpty: data.total === 0,
+                pages: pages,
+                curPage: curPage,
+                prevPage: curPage - 1,
+                nextPage: curPage + 1,
+                showPrevPage: curPage > 1,
+                showNextPage: curPage < number_of_pages - 1,
+            });
+        });
+
+});
+
+r.post('/danhsachsanphamyeuthich', function(req, res) {
+   var rec_per_page = 4;
+    var curPage = req.query.page ? req.query.page : 1;
+    var offset = (curPage - 1) * rec_per_page;
+
+    sanpham.loadPageByUserFavorite(req.body.id, rec_per_page, offset)
+        .then(function(data) {
+
+            var number_of_pages = data.total / rec_per_page;
+            if (data.total % rec_per_page > 0) {
+                number_of_pages++;
+            }
+
+            var pages = [];
+            for (var i = 1; i <= number_of_pages; i++) {
+                pages.push({
+                    pageValue: i,
+                    isActive: i === +curPage
+                });
+            }
+
+            res.render('nguoimua/danhsachsanphamyeuthich', {
+                layoutVM: res.locals.layoutVM,
+                sanpham: data.list,
+                isEmpty: data.total === 0,
+                pages: pages,
+                curPage: curPage,
+                prevPage: curPage - 1,
+                nextPage: curPage + 1,
+                showPrevPage: curPage > 1,
+                showNextPage: curPage < number_of_pages - 1,
+            });
+        });
+
+});
+r.post('/dsspthamgiadaugia', function(req, res) {
+   var rec_per_page = 4;
+    var curPage = req.query.page ? req.query.page : 1;
+    var offset = (curPage - 1) * rec_per_page;
+
+    sanpham.loadPageByUserToAuction(req.body.id, rec_per_page, offset)
+        .then(function(data) {
+
+            var number_of_pages = data.total / rec_per_page;
+            if (data.total % rec_per_page > 0) {
+                number_of_pages++;
+            }
+
+            var pages = [];
+            for (var i = 1; i <= number_of_pages; i++) {
+                pages.push({
+                    pageValue: i,
+                    isActive: i === +curPage
+                });
+            }
+
+            res.render('nguoimua/DSSP_Thamgiadaugia', {
+                layoutVM: res.locals.layoutVM,
+                sanpham: data.list,
+                isEmpty: data.total === 0,
+                pages: pages,
+                curPage: curPage,
+                prevPage: curPage - 1,
+                nextPage: curPage + 1,
+                showPrevPage: curPage > 1,
+                showNextPage: curPage < number_of_pages - 1,
+            });
+        });
+
 });
 module.exports = r;
