@@ -4,13 +4,15 @@ var moment = require('moment');
 
 var restrict = require('../middle-wares/restrict');
 var taikhoan = require('../models/taikhoanRepo');
-
+var lastUrl = '/';
 var r = express.Router();
 
 
 r.get('/dangnhap', function(req, res) {
+    if(req.headers.referer)
+        lastUrl = req.headers.referer;
     if (req.session.isLogged === true) {
-        res.redirect('/trangchu');
+        res.redirect(lastUrl);
     } else {
         res.render('taikhoan/dangnhap', {
             layoutVM: res.locals.layoutVM,
@@ -49,12 +51,12 @@ r.post('/dangnhap', function(req, res) {
                     req.session.cookie.maxAge = hour;
                 }
 
-                var url = '/trangchu';
+                var url = '/';
                 
-                if (req.query.retUrl) {
-                    url = req.query.retUrl;
+               if (lastUrl) {
+                    url = lastUrl;
                 }
-                res.redirect(url);
+                res.redirect(lastUrl);
             }
         });
 });
