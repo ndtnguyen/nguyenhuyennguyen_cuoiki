@@ -58,7 +58,8 @@ r.get('/chitiet/:id', function(req, res) {
                 sanpham: data.product,
                 nguoiban : data.saler,
                 mota : data.description,
-                liked : bool
+                liked : bool,
+                banned : data.banned
             });
 
         });
@@ -84,6 +85,35 @@ r.post('/huyyeuthich/:id', restrict, function(req, res) {
     SanPhamRepo.huyYeuThich(entity).then(function(message) {
         res.redirect(req.headers.referer);
         });
+});
+r.post('/daugia/:id', function(req, res) {
+    var entity = {
+        id : req.session.user.id,
+        sanpham : req.params.id,
+        ngay : new Date().toISOString().slice(0, 19).replace('T', ' '),
+        gia : req.body.giaDG
+    }
+
+    SanPhamRepo.daugia(entity).then(function(message) {
+        res.redirect(req.headers.referer);
+        });
+});
+
+r.get('/lichsudaugia/:id', function(req, res) {
+    if(req.session.isLogged)
+    {
+    SanPhamRepo.lichsudaugia(req.params.id).then(function(rows) {
+        res.render('sanpham/lichsudaugia',
+            {
+                layoutVM: res.locals.layoutVM,
+                lichsu : rows.lichsu,
+                sanpham : rows.sanpham
+            });
+
+        });
+    }
+    else
+    res.redirect('/sanpham/chitiet/'+req.params.id);
 });
 
 module.exports = r;
