@@ -6,8 +6,8 @@ var express = require('express'),
     path = require('path'),
     wnumb = require('wnumb'),
     moment = require('moment'),
-    MySQLStore = require('express-mysql-session')(session),
     session = require('express-session'),
+    MySQLStore = require('express-mysql-session')(session),
     handleLayout = require('./middle-wares/handleLayout'),
     TrangChuController = require('./controllers/TrangChuController'),
     SanPhamController = require('./controllers/SanPhamController'),
@@ -33,6 +33,9 @@ app.engine('hbs', handlebars({
                 thousand: ','
             });
             return nf.to(n);
+        },
+        formatTime: function(t) {
+            return moment(t).format('D/M/YYYY, h:mm:ss a');
         }
     }
 }));
