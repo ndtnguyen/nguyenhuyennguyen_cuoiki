@@ -143,12 +143,15 @@ exports.loadDetail = function(idSP, idUser) {
     var sql4 = 'select count(*) as total from nguoidungyeuthichsp where NguoiDung='+idUser+' and SanPham='+idSP;
     promises.push(db.load(sql4));
     
-    Q.all(promises).spread(function(rowsSP, rowsND, rowsMT,rowsYT) {
+    var sql5 = 'select count(*) as total from nguoidungbicamsp where NguoiDung='+idUser+' and SanPham='+idSP;
+    promises.push(db.load(sql5));
+    Q.all(promises).spread(function(rowsSP, rowsND, rowsMT,rowsYT,rowsC) {
         var data = {
             product: rowsSP,
             saler: rowsND,
             description: rowsMT,
-            liked : rowsYT[0].total
+            liked : rowsYT[0].total,
+            banned : rowsC[0].total
         }
         deferred.resolve(data);
     });
@@ -175,4 +178,52 @@ exports.huyYeuThich = function(entity) {
       
     return deferred.promise;
 }
+exports.daugia = function(entity) {
+    var deferred = Q.defer();
+    var promises =[];
+    var sql = 'select MAX(Gia) as maxgia,sp.BuocGia from nguoidungdaugiasp dg,sanpham sp where dg.SanPham='+entity.sanpham+' and sp.MaSP=dg.SanPham';
+    db.load(sql).then(function(rows) {
+            var giaCaoNhat = rows[0].maxgia;
+            var buocgia = rows[0].buocgia;
+            console.log(rows);
+            if (entity.gia > giaCaoNhat) {
+                var sql1 = mustache.render('insert into nguoidungdaugiasp (NguoiDung,SanPham,Gia,ThoiGian) values ("{{id}}","{{sanpham}}","{{gia}}","{{ngay}}")',
+                entity);
+                promises.push(db.load(sql1));
+                var sql2 = mustache.render('update sanpham set GiaHienTai={{gia}},NguoiThangCuoc={{id}} where MaSP={{sanpham}}',
+                    entity);
+                promises.push(db.load(sql2));
+                console.log(sql2);
+                Q.all(promises).spread(function(insertId,updateId) {
+                    deferred.resolve(1);
+                });    
+            }
+            else
+                deferred.resolve(0);
+    });
+    
+return deferred.promise;
+    
+}
 
+exports.lichsudaugia = function(id) {
+
+    var deferred = Q.defer();
+    var promises=[];
+    
+    var sql3 = 'select * from nguoidungdaugiasp dg,nguoidung nd where dg.SanPham = ' + id+' and dg.NguoiDung=nd.MAKH';
+    promises.push(db.load(sql3));
+
+    var sql4 = 'select * from danhmuc dm,sanpham sp where sp.MaSP='+id+' and sp.DanhMuc=dm.MaDanhMuc';
+    promises.push(db.load(sql4));
+    
+    Q.all(promises).spread(function(rowsLS, rowsSP) {
+        var data = {
+            lichsu : rowsLS,
+            sanpham : rowsSP
+        }
+
+        deferred.resolve(data);
+    });
+    return deferred.promise;
+}
