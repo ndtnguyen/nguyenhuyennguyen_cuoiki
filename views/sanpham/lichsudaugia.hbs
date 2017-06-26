@@ -1,0 +1,141 @@
+{{#section 'css'}}
+<style type="text/css">
+	#addresslink {
+            padding-left: 10px; 
+            color: blue;  
+            background-color: #EFEFEF;"
+            border: 1px solid;
+    }
+    #tieude {
+    	font-size: 30pt;
+    	font-weight: bold;
+    	text-align: center;
+    }
+</style>
+{{/section}}
+{{#section 'js'}}
+<script type="text/javascript">
+	$('a').hover (function(){
+		$(this).css('text-decoration','none');
+	})
+</script>
+
+{{/section}}
+{{#section 'customnavbar'}}
+
+<div class="row" id="addresslink">
+    <div class="col-sm-0 col-md-1 col-lg-1"></div>
+    <div class="col-sm-12 col-md-11 col-lg-11">
+        <a href="/trangchu" class="linknav">Trang chủ </a>
+            <img src="/imgs/right-arrow.png" >
+            {{#each sanpham}}
+            <a href="/danhmuc/{{DanhMuc}}" class="linknav">{{TenDanhMuc}}</a>
+            <img src="/imgs/right-arrow.png" >
+           	<a href="/sanpham/chitiet/{{MaSP}}" class="linknav">{{TenSP}}</a>
+           	<img src="/imgs/right-arrow.png" >
+           	<a href="#" class="linknav">Lịch sử đấu giá {{TenSP}}</a>
+        {{/each}}
+        
+    </div>
+</div>
+
+{{/section}}
+
+<div class="row detail-content">
+	{{#each sanpham}}
+	<div id="tieude">Lịch sử đấu giá {{TenSP}}</div>
+	<br>
+	{{/each}}
+	{{#if lichsu}}
+	<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Tên tài khoản</th>
+        <th>Giá</th>
+        <th>Thời gian</th>
+       	{{#ifCond layoutVM.curUser.permission 1}}
+        <th>Edit</th>
+        {{/ifCond}}
+      </tr>
+    </thead>
+    <tbody>
+        {{#ifCond layoutVM.curUser.permission 1}}
+       
+        {{#each lichsu}}
+	    <tr>
+	        <td>{{Username}}</td>
+	        <td>{{formatNumber Gia}}đ</td>
+	        <td>{{ThoiGian}}</td>
+			<td>
+            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModalNorm"> Kick </button>
+            <!-- Modal -->
+            <div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog" 
+                 aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <button type="button" class="close" 
+                               data-dismiss="modal">
+                                   <span aria-hidden="true">&times;</span>
+                                   <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Lí do
+                            </h4>
+                        </div>
+                        <form method="post" action="/nguoiban/kick">
+                            <input type="hidden" name="nguoimua" value={{MAKH}}>
+                            <input type="hidden" name="sanpham" value={{SanPham}}>
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="lido">Hãy nhập lí do xóa bỏ người tham gia đấu giá</label>
+                                <input type="text" class="form-control" id="lido" name="lido"/>
+                              </div>
+                            
+                            
+                        </div>
+                        
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">
+                                        Hủy
+                            </button>
+                            
+                            
+                            <button type="submit" class="btn btn-primary">
+                                OK
+                            </button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+   
+			
+				
+			</td>
+		</tr>
+        {{/each}}
+        {{/ifCond}}
+        
+        {{#ifCond layoutVM.curUser.permission 0}}
+        {{#each lichsu}}
+	    <tr>
+	        <td>{{Username}}</td>
+	        <td>{{Gia}}</td>
+	        <td>{{ThoiGian}}</td>
+	    </tr>
+	    {{/each}}
+	    {{/ifCond}}
+   
+    </tbody>
+  </table>
+	{{else}}
+	Hiện tại sản phẩm chưa được ai đấu giá
+	{{/if}}
+  
+</div>
+
