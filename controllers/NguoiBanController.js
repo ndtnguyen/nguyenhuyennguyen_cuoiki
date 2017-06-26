@@ -139,5 +139,16 @@ r.post('/danhsachsanphamconguoimua', function(req, res) {
         });
 
 });
+r.post('/kick', function(req, res) {
+    var entity ={
+        nguoimua : req.body.nguoimua,
+        sanpham : req.body.sanpham,
+        lido : req.body.lido,
+        ngay: new Date().toISOString().slice(0, 19).replace('T', ' '),
+    };
+    nguoiban.kick(entity).then(function(rows) {
+        res.redirect(req.headers.referer);
 
+        });
+});
 module.exports = r;
