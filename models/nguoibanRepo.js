@@ -73,3 +73,37 @@ exports.loadPageByProduct_Sold = function(id,limit, offset) {
     });
     return deferred.promise;
 }
+exports.kick = function(entity) {
+
+    var deferred = Q.defer();
+    var promises=[];
+    var sql1 =
+        mustache.render(
+            'delete from nguoidungdaugiasp where NguoiDung={{nguoimua}} and SanPham={{sanpham}}',
+            entity
+        );
+    promises.push(db.delete(sql1));
+
+    var sql2 = 
+        mustache.render(
+            'update sanpham set GiaHienTai=(select MAX(Gia) from nguoidungdaugiasp where SanPham={{sanpham}}) where MaSP={{sanpham}}',
+            entity);
+    promises.push(db.update(sql2));
+
+    var sql3 = 
+        mustache.render(
+            'update sanpham set NguoiThangCuoc=(select NguoiDung from nguoidungdaugiasp where SanPham={{sanpham}} and Gia=(select MAX(Gia) from nguoidungdaugiasp) where MaSP={{sanpham}}',
+            entity);
+    
+    var sql4 = mustache.render (
+            'insert into nguoidungbicamsp (NguoiDung,SanPham,ThoiGian,LyDo) values ("{{nguoimua}}","{{sanpham}}","{{ngay}}","{{lido}}")',
+            entity);
+    promises.push(db.insert(sql4));
+    
+    Q.all(promises).spread(function(deleteID,updateID1,updateID2,insertID) {
+
+        deferred.resolve(1);
+    });
+
+    return deferred.promise;
+}
