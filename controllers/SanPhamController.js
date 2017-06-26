@@ -47,7 +47,7 @@ r.get('/chitiet/:id', function(req, res) {
     var userid = -1;
     if (req.session.isLogged)
         userid = req.session.user.id;
-    SanPhamRepo.loadDetail(maSP)
+    SanPhamRepo.loadDetail(maSP,userid)
         .then(function(data) {
         var bool;
         if(data.liked>0)
