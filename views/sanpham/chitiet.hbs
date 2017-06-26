@@ -22,20 +22,26 @@
             color: blue;  
             background-color: #EFEFEF;"
             border: 1px solid;
-    }
+    	}
+    	.likebtn {
+      		-webkit-border-radius: 5;
+      		-moz-border-radius: 5;
+      		border-radius: 5px;
+     	 	font-family: Arial;
+		color: #ffffff;
+		font-size: 16px;
+		background: #f03838;
+		padding: 10px 20px 10px 20px;
+		text-decoration: none;
+    	}
+
+    	.likebtn:hover {
+      		background: #e64c4c;
+      		color: white;
+    	}
 </style>
 {{/section}}
 
-{{#section 'js'}}
-    <script src="/assets/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
-    <script type="text/javascript">
-        $('#txtQ').TouchSpin({
-            min: 1,
-            max: 50,
-            verticalButtons: true
-        });
-    </script>
-{{/section}}
 
 {{#section 'customnavbar'}}
 {{#each sanpham}}
@@ -44,7 +50,7 @@
     <div class="col-sm-12 col-md-11 col-lg-11">
         <a href="/trangchu" class="linknav">Trang chủ </a>
             <img src="/imgs/right-arrow.png" >
-            <a href="/danhmuc/{{DanhMuc}}" class="linknav">Điện gia dụng - Điện lạnh</a>
+            <a href="/danhmuc/{{DanhMuc}}" class="linknav">{{TenDanhMuc}}</a>
             <img src="/imgs/right-arrow.png" >
         <a href="/product/detail/{{MaSP}}" class="linknav">{{TenSP}}</a>
     </div>
