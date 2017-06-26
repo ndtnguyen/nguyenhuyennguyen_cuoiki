@@ -52,7 +52,7 @@
             <img src="/imgs/right-arrow.png" >
             <a href="/danhmuc/{{DanhMuc}}" class="linknav">{{TenDanhMuc}}</a>
             <img src="/imgs/right-arrow.png" >
-        <a href="/product/detail/{{MaSP}}" class="linknav">{{TenSP}}</a>
+        <a href="/sanpham/chitiet/{{MaSP}}" class="linknav">{{TenSP}}</a>
     </div>
 </div>
 {{/each}}
@@ -142,17 +142,23 @@
 		<hr>
 		<!--Input đấu giá-->
 		{{#if layoutVM.isLogged}}
+		{{#ifCond banned 0}}
+		{{#ifCond layoutVM.curUser.permission 0}}
+		
 		<div class="row" >
-			<form>
+			{{#each sanpham}}
+			<form method="post" action="/sanpham/daugia/{{MaSP}}">
 				<div class="form-group">
 					<label for="userprice"> Giá của bạn:</label>
-					<input type="text" name="userprice" id="userprice">
-					<button type="button" class="btn btn-danger" style="margin-left: 10px;">
+					<input type="text" name="userprice" id="userprice" name="giaDG">
+					<button type="submit" class="btn btn-danger" style="margin-left: 10px;">
 						Đấu giá
 					</button>
 				</div>	
 			</form>
+			{{/each}}
 			{{#if liked}}
+			
 			{{#each sanpham}}
             		<form class="form-horizontal" id="frmAddItem" method="post" action="/sanpham/huyyeuthich/{{MaSP}}">
                 	{{/each}}
@@ -177,13 +183,17 @@
 	                    			</button>
 	                		</div>
 	            		</div>
-			</form> 
+			</form>
 			{{/if}}
+		{{/ifCond}}
+		{{#each sanpham}}
+		<a href="/sanpham/lichsudaugia/{{MaSP}}" style="display: inline-block;padding-left: 10px;"> Xem lịch sử đấu giá </a>
+		{{/each}}
+			
 		</div>
+		{{/ifCond}}
 		{{/if}}
+		
 	</div>
 </div>
 
-{{#section 'js'}}
-
-{{/section}}
