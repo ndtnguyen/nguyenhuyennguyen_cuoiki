@@ -36,6 +36,12 @@ app.engine('hbs', handlebars({
         },
         formatTime: function(t) {
             return moment(t).format('D/M/YYYY, h:mm:ss a');
+        },
+        ifCond: function(v1, v2, options) {
+            if(v1 === v2) {
+            return options.fn(this);
+            }
+        return options.inverse(this);
         }
     }
 }));
