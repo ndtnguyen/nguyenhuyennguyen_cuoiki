@@ -125,28 +125,54 @@ exports.loadAllByCat = function(id) {
     return deferred.promise;
 }
 
-exports.loadDetail = function(id) {
+exports.loadDetail = function(idSP, idUser) {
 
     var deferred = Q.defer();
 
     var promises = [];
 
-    var sql1 = 'select * from sanpham where MaSP = ' + id;
+    var sql1 = 'select * from sanpham where MaSP = ' + idSP;
     promises.push(db.load(sql1));
 
-    var sql2 = 'select * from sanpham s,nguoidung nd where s.NguoiDang=nd.MAKH and s.MaSP='+id;
+    var sql2 = 'select * from sanpham s,nguoidung nd where s.NguoiDang=nd.MAKH and s.MaSP='+idSP;
     promises.push(db.load(sql2));
 
-    var sql3 = 'select * from sanpham s,motasanpham mt where s.MaSP=mt.maSP and s.MaSP='+id;
+    var sql3 = 'select * from sanpham s,motasanpham mt where s.MaSP=mt.maSP and s.MaSP='+idSP;
     promises.push(db.load(sql3));
 
-    Q.all(promises).spread(function(rowsSP, rowsND, rowsMT) {
+    var sql4 = 'select count(*) as total from nguoidungyeuthichsp where NguoiDung='+idUser+' and SanPham='+idSP;
+    promises.push(db.load(sql4));
+    
+    Q.all(promises).spread(function(rowsSP, rowsND, rowsMT,rowsYT) {
         var data = {
             product: rowsSP,
             saler: rowsND,
-            description: rowsMT
+            description: rowsMT,
+            liked : rowsYT[0].total
         }
         deferred.resolve(data);
     });
     return deferred.promise;
 }
+exports.themYeuThich = function(entity) {
+    var deferred = Q.defer();
+    var sql = mustache.render('insert into nguoidungyeuthichsp (NguoiDung,SanPham,ThoiGian) values ("{{id}}","{{sanpham}}","{{ngay}}")',
+                entity);
+            db.insert(sql).then(function(insertId) {
+            deferred.resolve(insertId);
+            });
+
+    return deferred.promise;
+}
+
+exports.huyYeuThich = function(entity) {
+    var deferred = Q.defer();
+    var sql = mustache.render('delete from nguoidungyeuthichsp where NguoiDung={{id}} and SanPham={{sanpham}}',
+                entity);
+            db.delete(sql).then(function(deletedId) {
+            deferred.resolve(deletedId);
+            });
+      
+    return deferred.promise;
+}
+
