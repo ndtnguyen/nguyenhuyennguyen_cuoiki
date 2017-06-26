@@ -38,23 +38,7 @@
  </style>
 
 {{/section}}
-{{#section 'js'}}
-<!-- Swiper JS -->
-    <script src="/assets/dist/js/swiper.min.js"></script>
-    <script>
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        slidesPerView: 4,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        spaceBetween: 5
-    });
-    </script>
-    <script type="text/javascript">
-      $('#anh1').addClass('active');
-    </script>
-{{/section}}
+
 
 <br>
  <div class="row">
@@ -118,15 +102,14 @@
                               <div class="swiper-container">
                                   <div class="swiper-wrapper">
                                   {{#each top5NhieuNhat}}
-                                    <a href="/sanpham/chitiet/{{MaSP}}" class="TenSanPham">
+                                    <a href="/sanpham/chitiet/{{SanPham}}" class="TenSanPham">
                                       <div class="swiper-slide">
                                           <div class="thumbnail">
                                            <center> 
-                                             <img src="/imgs/sanpham/{{MaSP}}/1.jpg" alt="...">
+                                             <img src="/Imgs/sp/{{SanPham}}/1.jpg" alt="{{TenSP}}" style="width: 60%;">
                                               <div class="caption">
-                                                       {{TenSP}}       
-                                                 <br/>Giá hiện tại: <p>{{GiaHienTai}}</p>
-                                                  <div class="clockdiv" id="clock11">
+                                                       {{TenSP}}   
+                                                  <div class="clockdiv" id="clock{{SanPham}}NN">
                                                           <img src ="/imgs/Time.png" alt="Thời gian đấu giá"/>
                                                           <div>
                                                             <span class="days"></span>
@@ -151,6 +134,9 @@
                                                         <div>&nbsp;Giờ</div>
                                                         <div>&nbsp;Phút</div>
                                                         <div>Giây</div>   
+                                                  </div>
+                                                  <div class="NhapGiaVaDauGia">
+                                                       <div><input type="text" class="form-control GiaSanPham" value="{{GiaHienTai}}"/ readonly=""> </div>
                                                   </div>
                                                  Tổng số lượt: {{SoLuotDat}}
                                               </div>
@@ -180,16 +166,15 @@
                               <div class="swiper-container">
                                   <div class="swiper-wrapper">
                                   {{#each top5CaoNhat}}
-                                  <a href="#" class="TenSanPham">
+                                  <a href="/sanpham/chitiet/{{MaSP}}" class="TenSanPham">
                                       <div class="swiper-slide">
                                           <div class="thumbnail">
                                            <center> 
-                                             <img src="/imgs/5.jpg" alt="...">
+                                             <img src="Imgs/sp/{{MaSP}}/1.jpg" alt="{{TenSP}}" style="width: 60%;">
                                               <div class="caption">
                                                        {{TenSP}}
-                                                  <p>{{GiaHienTai}}</p>
-                                                  <div class="clockdiv" id="clock11">
-                                                          <img src ="imgs/Time.png" alt="Thời gian đấu giá"/>
+                                                  <div class="clockdiv" id="clock{{MaSP}}CN">
+                                                          <img src ="imgs/Time.png" alt="Thời gian đấu giá" height="50%"/>
                                                           <div>
                                                             <span class="days"></span>
                                                             <div class="smalltext"></div>
@@ -215,8 +200,7 @@
                                                         <div>Giây</div>   
                                                   </div>
                                                   <div class="NhapGiaVaDauGia">
-                                                        <div><input type="text" class="form-control GiaSanPham" value="21.605.000"/> </div>
-                                                        <div><button type="button" class="btn btn-primary DoiGiaSanPham">ĐẤU GIÁ</button></div>
+                                                       <div><input type="text" class="form-control GiaSanPham" value="{{GiaHienTai}}"/ readonly=""> </div>
                                                   </div>
                                               </div>
                                            </center>
@@ -243,16 +227,15 @@
                               <div class="swiper-container">
                                   <div class="swiper-wrapper">
                                   {{#each top5SapHet}}
-                                  <a href="#" class="TenSanPham">
+                                  <a href="/sanpham/chitiet/{{MaSP}}" class="TenSanPham">
                                       <div class="swiper-slide">
                                           <div class="thumbnail">
                                            <center> 
-                                             <img src="img/LaptopThietBiIT/5.jpg" alt="...">
+                                             <img src="Imgs/sp/{{MaSP}}/1.jpg" alt="{{TenSP}}" style="width: 60%;">
                                               <div class="caption">
                                                        {{TenSP}}
-                                                  <p>{{GiaHienTai}}</p>
-                                                  <div class="clockdiv" id="clock11">
-                                                          <img src ="img/Time.png" alt="Thời gian đấu giá"/>
+                                                  <div class="clockdiv" id="clock{{MaSP}}SH">
+                                                          <img src ="imgs/Time.png" alt="Thời gian đấu giá" height="50%"/>
                                                           <div>
                                                             <span class="days"></span>
                                                             <div class="smalltext"></div>
@@ -277,9 +260,10 @@
                                                         <div>&nbsp;Phút</div>
                                                         <div>Giây</div>   
                                                   </div>
+                                                  Giá hiện tại:
                                                   <div class="NhapGiaVaDauGia">
-                                                        <div><input type="text" class="form-control GiaSanPham" value="21.605.000"/> </div>
-                                                        <div><button type="button" class="btn btn-primary DoiGiaSanPham">ĐẤU GIÁ</button></div>
+                                                        <div><input type="text" class="form-control GiaSanPham" value="{{GiaHienTai}}"/ readonly=""> </div>
+                                        
                                                   </div>
                                               </div>
                                            </center>
@@ -298,3 +282,47 @@
               </div>
     </div>
      <br/>
+
+     {{#section 'js'}}
+<!-- Swiper JS -->
+    <script src="/assets/dist/js/swiper.min.js"></script>
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        slidesPerView: 4,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        spaceBetween: 5
+    });
+    </script>
+    <script type="text/javascript">
+      $('#anh1').addClass('active');
+    </script>
+
+    <script src="/assets/js/jst.js"></script>
+    <script type="text/javascript">
+    var deadline1;
+       {{#each top5NhieuNhat}}       
+        var sumGiayText = {{Giay}};
+        var sumGiay = parseInt(sumGiayText);
+        deadline1 = new Date(Date.parse(new Date()) + sumGiay*1000);
+       
+       initializeClock('clock{{SanPham}}NN', deadline1);
+       {{/each}}
+
+       var deadline2;
+      {{#each top5CaoNhat}}
+        var sumGiayText = {{Giay}};
+        var sumGiay = parseInt(sumGiayText);
+        deadline2 = new Date(Date.parse(new Date()) + sumGiay*1000);
+        initializeClock('clock{{MaSP}}CN', deadline2);
+      {{/each}}
+
+      {{#each top5SapHet}}
+       
+        initializeClock('clock{{MaSP}}SH', deadline1);
+      {{/each}}
+
+    </script>
+{{/section}}
