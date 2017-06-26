@@ -131,7 +131,7 @@ exports.loadDetail = function(idSP, idUser) {
 
     var promises = [];
 
-    var sql1 = 'select * from sanpham where MaSP = ' + idSP;
+    var sql1 = 'select * from sanpham,danhmuc dm where MaSP = ' + idSP+' and s.DanhMuc=dm.MaDanhMuc';
     promises.push(db.load(sql1));
 
     var sql2 = 'select * from sanpham s,nguoidung nd where s.NguoiDang=nd.MAKH and s.MaSP='+idSP;
