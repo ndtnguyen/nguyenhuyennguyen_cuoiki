@@ -9,7 +9,7 @@ var r = express.Router();
 
 
 r.get('/dangnhap', function(req, res) {
-    if(req.headers.referer)
+    if(req.headers.referer!='http://localhost:3000/taikhoan/dangnhap')
         lastUrl = req.headers.referer;
     if (req.session.isLogged === true) {
         res.redirect(lastUrl);
