@@ -42,15 +42,22 @@
 </style>
 {{/section}}
 
+{{#section 'js'}}
+<script type="text/javascript">
+	$('a').hover (function(){
+		$(this).css('text-decoration','none');
+	});
+	
+</script>
 
 {{#section 'customnavbar'}}
 {{#each sanpham}}
 <div class="row" id="addresslink">
     <div class="col-sm-0 col-md-1 col-lg-1"></div>
     <div class="col-sm-12 col-md-11 col-lg-11">
-        <a href="/trangchu" class="linknav">Trang chủ </a>
+        <a href="/" class="linknav">Trang chủ </a>
             <img src="/imgs/right-arrow.png" >
-            <a href="/danhmuc/{{DanhMuc}}" class="linknav">{{TenDanhMuc}}</a>
+            <a href="/sanpham/theodanhmuc/{{DanhMuc}}" class="linknav">{{TenDanhMuc}}</a>
             <img src="/imgs/right-arrow.png" >
         <a href="/sanpham/chitiet/{{MaSP}}" class="linknav">{{TenSP}}</a>
     </div>
@@ -116,13 +123,30 @@
 				<br>
 				{{#each sanpham}}
 				<b>Giá bán:</b> 
-				<span style="color: red; font-weight:bold"> 
-                        		{{formatNumber GiaKhoiDiem}}
-                    		</span>
+				{{formatNumber GiaKhoiDiem}}đ
                 		<br>
-				Ngày đăng: {{now NgayDang}}
+				<b>Giá cao nhất hiện tại:</b>
+                		<span style="color: red; font-weight:bold;"> 
+                			{{#if GiaHienTai}}
+                				{{formatNumber GiaHienTai}}đ
+                			{{else}}
+                				Chưa có
+                			{{/if}}
+                		</span>
+                		<br>
+                		<b>Bước giá:</b>
+                		{{formatNumber BuocGia}}đ
+                		<br>
+                		{{#if GiaMuaNgay}}
+                			<b>Giá mua ngay:</b>
+                			<span style="color: red; font-weight:bold"> 
+                    				{{formatNumber GiaMuaNgay}}đ
+                			</span>
 				<br>
-				Ngày hết hạn: {{now ThoiGianHet}}
+                		{{/if}}
+				Ngày đăng: {{formatTime NgayDang}}
+				<br>
+				Ngày hết hạn: {{formatTime ThoiGianHet}}
 				{{/each}}
 				
 			</div>
@@ -150,7 +174,7 @@
 			<form method="post" action="/sanpham/daugia/{{MaSP}}">
 				<div class="form-group">
 					<label for="userprice"> Giá của bạn:</label>
-					<input type="text" name="userprice" id="userprice" name="giaDG">
+					<input type="text" id="userprice" name="giaDG">
 					<button type="submit" class="btn btn-danger" style="margin-left: 10px;">
 						Đấu giá
 					</button>
