@@ -65,7 +65,7 @@ r.get('/chitiet/:id', function(req, res) {
         });
 });
 
-r.post('/themyeuthich/:id', restrict, function(req, res) {
+r.post('/themyeuthich/:id',function(req, res) {
     
     var entity = {
         id : req.session.user.id,
@@ -77,7 +77,7 @@ r.post('/themyeuthich/:id', restrict, function(req, res) {
         });
 });
 
-r.post('/huyyeuthich/:id', restrict, function(req, res) {
+r.post('/huyyeuthich/:id',function(req, res) {
     var entity = {
         id : req.session.user.id,
         sanpham : req.params.id
