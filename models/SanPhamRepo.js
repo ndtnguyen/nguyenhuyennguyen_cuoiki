@@ -131,7 +131,7 @@ exports.loadDetail = function(idSP, idUser) {
 
     var promises = [];
 
-    var sql1 = 'select * from sanpham,danhmuc dm where MaSP = ' + idSP+' and s.DanhMuc=dm.MaDanhMuc';
+    var sql1 = 'select * from sanpham s,danhmuc dm where MaSP = ' + idSP+' and s.DanhMuc=dm.MaDanhMuc';
     promises.push(db.load(sql1));
 
     var sql2 = 'select * from sanpham s,nguoidung nd where s.NguoiDang=nd.MAKH and s.MaSP='+idSP;
@@ -184,8 +184,7 @@ exports.daugia = function(entity) {
     var sql = 'select MAX(Gia) as maxgia,sp.BuocGia from nguoidungdaugiasp dg,sanpham sp where dg.SanPham='+entity.sanpham+' and sp.MaSP=dg.SanPham';
     db.load(sql).then(function(rows) {
             var giaCaoNhat = rows[0].maxgia;
-            var buocgia = rows[0].buocgia;
-            console.log(rows);
+            var buocgia = rows[0].BuoGgia;
             if (entity.gia > giaCaoNhat) {
                 var sql1 = mustache.render('insert into nguoidungdaugiasp (NguoiDung,SanPham,Gia,ThoiGian) values ("{{id}}","{{sanpham}}","{{gia}}","{{ngay}}")',
                 entity);
