@@ -124,6 +124,15 @@ CREATE TABLE AnhNen
 	link varchar(100)
 );
 
+DROP TABLE IF EXISTS `NGUOIDUNGRESETMK`;
+CREATE TABLE NGUOIDUNGRESETMK
+(
+	MaKH int,
+	ThoiGian datetime,
+	TinhTrang varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+	PRIMARY key(MaKH, ThoiGian);
+);
+
 
 /*Đây là khóa ngoại*/
 ALTER TABLE NGUOIDUNGXINBAN
