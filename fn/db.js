@@ -1,112 +1,86 @@
-var mysql = require('mysql'),
-    q = require('q');
+var Q = require('q');
+var mysql = require('mysql');
 
-var _HOST = '127.0.0.1',
-    _USER = 'root',
-    _PWD = '',
-    _DB = 'qldg';
+var HOST = '127.0.0.1',
+    DB = 'qldg';
+    USER = 'root',
+    PWD = '';
+
+function connect() {
+
+    var deferred = Q.defer();
+
+    var cn = mysql.createConnection({
+        host: HOST,
+        user: USER,
+        password: PWD,
+        database: DB
+    });
+
+    cn.connect(function(err) {
+        if (err) throw err;
+        deferred.resolve(cn);
+    });
+
+    return deferred.promise;
+}
 
 exports.load = function(sql) {
 
-    var d = q.defer();
+    var deferred = Q.defer();
 
-    var connection = mysql.createConnection({
-        host: _HOST,
-        user: _USER,
-        password: _PWD,
-        database: _DB
+    connect().then(function(cn) {
+        cn.query(sql, function(err, rows, fields) {
+            if (err) throw err;
+            deferred.resolve(rows);
+        });
     });
 
-    connection.connect();
-
-    connection.query(sql, function(error, rows, fields) {
-        if (error)
-            d.reject(error);
-            // throw error;
-
-        d.resolve(rows);
-    });
-
-    connection.end();
-
-    return d.promise;
+    return deferred.promise;
 }
 
 exports.insert = function(sql) {
-    
-    var d = q.defer();
 
-    var connection = mysql.createConnection({
-        host: _HOST,
-        user: _USER,
-        password: _PWD,
-        database: _DB
+    var deferred = Q.defer();
+
+    connect().then(function(cn) {
+        cn.query(sql, function(err, res) {
+            if (err) throw err;
+            deferred.resolve(res.insertId);
+        });
     });
 
-    connection.connect();
-
-    connection.query(sql, function(error, value) {
-        if (error) {
-            // throw error;
-            d.reject(error);
-        } else {
-            d.resolve(value.insertId);
-        }
-    });
-
-    connection.end();
-
-    return d.promise;
+    return deferred.promise;
 }
 
 exports.update = function(sql) {
-    
-    var d = q.defer();
 
-    var connection = mysql.createConnection({
-        host: _HOST,
-        user: _USER,
-        password: _PWD,
-        database: _DB
+    var deferred = Q.defer();
+
+    connect().then(function(cn) {
+        cn.query(sql, function(err, res) {
+            if (err) throw err;
+            deferred.resolve(res.changedRows);
+        });
     });
 
-    connection.connect();
-
-    connection.query(sql, function(error, value) {
-        if (error) {
-            d.reject(error);
-        } else {
-            d.resolve(value.changedRows);
-        }
-    });
-
-    connection.end();
-
-    return d.promise;
+    return deferred.promise;
 }
 
 exports.delete = function(sql) {
-    
-    var d = q.defer();
 
-    var connection = mysql.createConnection({
-        host: _HOST,
-        user: _USER,
-        password: _PWD,
-        database: _DB
+    var deferred = Q.defer();
+
+    connect().then(function(cn) {
+        cn.query(sql, function(err, res) {
+            if (err) throw err;
+            deferred.resolve(res.affectedRows);
+        });
     });
 
-    connection.connect();
-
-    connection.query(sql, function(error, value) {
-        if (error) {
-            d.reject(error);
-        } else {
-            d.resolve(value.affectedRows);
-        }
-    });
-
-    connection.end();
-
-    return d.promise;
+    return deferred.promise;
 }
+
+// exports.escape = function(p) {
+//     return mysql.escape(p);
+// }
