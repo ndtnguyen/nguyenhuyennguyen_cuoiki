@@ -15,6 +15,7 @@ var express = require('express'),
 var NguoiMuaController = require('./controllers/NguoiMuaController');
 var NguoiBanController = require('./controllers/NguoiBanController');
 var app = express();
+var https = require('https');
 
 app.use(morgan('dev'));
 
@@ -42,6 +43,9 @@ app.engine('hbs', handlebars({
             return options.fn(this);
             }
         return options.inverse(this);
+        }, 
+        formatDate: function(t) {
+            return moment(t).format('D/M/YYYY');
         }
     }
 }));
@@ -87,4 +91,7 @@ app.use('/sanpham', SanPhamController);
 app.use('/taikhoan', TaiKhoanController);
 app.use('/nguoimua', NguoiMuaController);
 app.use('/nguoiban',  NguoiBanController);
+
 app.listen(3000);
+
+
