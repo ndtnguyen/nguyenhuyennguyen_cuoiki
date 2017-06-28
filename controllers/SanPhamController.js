@@ -1,5 +1,5 @@
-var express = require('express'),
-    SanPhamRepo = require('../models/SanPhamRepo');
+var express = require('express');
+var sanpham = require('../models/SanPhamRepo');
 
 var r = express.Router();
 
@@ -8,7 +8,7 @@ r.get('/theodanhmuc/:id', function(req, res) {
     var curPage = req.query.page ? req.query.page : 1;
     var offset = (curPage - 1) * rec_per_page;
 
-    SanPhamRepo.loadPageByCat(req.params.id, rec_per_page, offset)
+    sanpham.loadPageByCat(req.params.id, rec_per_page, offset)
         .then(function(data) {
 
             var number_of_pages = data.total / rec_per_page;
@@ -47,7 +47,7 @@ r.get('/chitiet/:id', function(req, res) {
     var userid = -1;
     if (req.session.isLogged)
         userid = req.session.user.id;
-    SanPhamRepo.loadDetail(maSP,userid)
+    sanpham.loadDetail(maSP,userid)
         .then(function(data) {
         var bool;
         if(data.liked>0)
@@ -72,7 +72,7 @@ r.post('/themyeuthich/:id',function(req, res) {
         sanpham : req.params.id,
         ngay : new Date().toISOString().slice(0, 19).replace('T', ' '),
     }
-    SanPhamRepo.themYeuThich(entity).then(function(message) {
+    sanpham.themYeuThich(entity).then(function(message) {
         res.redirect(req.headers.referer);
         });
 });
@@ -82,7 +82,7 @@ r.post('/huyyeuthich/:id',function(req, res) {
         id : req.session.user.id,
         sanpham : req.params.id
     }
-    SanPhamRepo.huyYeuThich(entity).then(function(message) {
+    sanpham.huyYeuThich(entity).then(function(message) {
         res.redirect(req.headers.referer);
         });
 });
@@ -94,7 +94,7 @@ r.post('/daugia/:id', function(req, res) {
         gia : req.body.giaDG
     }
 
-    SanPhamRepo.daugia(entity).then(function(message) {
+    sanpham.daugia(entity).then(function(message) {
         res.redirect(req.headers.referer);
         });
 });
@@ -102,7 +102,7 @@ r.post('/daugia/:id', function(req, res) {
 r.get('/lichsudaugia/:id', function(req, res) {
     if(req.session.isLogged)
     {
-    SanPhamRepo.lichsudaugia(req.params.id).then(function(rows) {
+    sanpham.lichsudaugia(req.params.id).then(function(rows) {
         res.render('sanpham/lichsudaugia',
             {
                 layoutVM: res.locals.layoutVM,

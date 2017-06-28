@@ -5,6 +5,7 @@ var moment = require('moment');
 var restrict = require('../middle-wares/restrict');
 var taikhoan = require('../models/taikhoanRepo');
 var lastUrl = '/';
+var mail = require('../fn/mailtouser');
 var r = express.Router();
 
 
@@ -50,7 +51,7 @@ r.post('/dangnhap', function(req, res) {
                     req.session.cookie.expires = new Date(Date.now() + hour);
                     req.session.cookie.maxAge = hour;
                 }
-
+                 
                 var url = '/';
                 
                if (lastUrl) {
@@ -91,15 +92,25 @@ r.post('/dangki', function(req, res) {
         dob: nDOB,
         permission: 0
     };
-
     taikhoan.insert(entity)
-        .then(function(insertId) {
-            res.render('taikhoan/dangki', {
-                layoutVM: res.locals.layoutVM,
-                showError: true,
-                errorMsg: 'Đăng ký thành công.'
-            });
-        });
+                .then(function(insertId) {
+                    var mailinfo = {
+                        email : entity.email,
+                        subject : 'Chào mừng bạn đến với Auction.com',
+                        htmltext : 'Chào bạn <b>'+entity.name+'</b>,'
+                                    +'<br>Cảm ơn bạn đã đăng kí tham gia Auction'
+                                    +'<br>Hãy truy cập ngay trang web của chúng tôi để tham gia đấu giá sản phẩm đầu tiên'
+                    }
+                    mail.mailtouser(mailinfo);
+                    res.render('taikhoan/dangki', {
+                        layoutVM: res.locals.layoutVM,
+                        showError: true,
+                        errorMsg: 'Đăng ký thành công.'
+                    });
+                    console.log('render');
+                });
+ 
+      
 });
 
 r.get('/thongtin', restrict, function(req, res) {

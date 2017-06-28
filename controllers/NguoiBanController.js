@@ -3,7 +3,7 @@ var nguoimua = require('../models/nguoimua');
 var crypto = require('crypto');
 var moment = require('moment');
 var restrict = require('../middle-wares/restrict');
-var sanpham = require('../models/sanphamRepo');
+var sanpham = require('../models/SanPhamRepo');
 var r = express.Router();
 var taikhoanRepo = require('../models/taikhoanRepo');
 var nguoiban = require('../models/nguoibanRepo');
@@ -29,7 +29,7 @@ r.post('/chinhsuathongtincanhan', function(req, res) {
         name: req.body.name,
         email: req.body.email,
         dob: nDOB,
-        permission: 1
+        permission: 0
     };
     taikhoanRepo.updateProfile(entity);
     req.session.user = entity;
@@ -39,11 +39,16 @@ r.post('/chinhsuathongtincanhan', function(req, res) {
         errorMsg: 'Cập nhật thông tin thành công!!!!'
     });
 });
-r.get('/dangsanphamlenban',function(req,res) {
-    res.render('nguoiban/dangsanphamlenban',{
-        layoutVM:res.locals.layoutVM,
-    });
+r.get('/dangsanphamlenban', function(req, res) {
+   
+            res.render('nguoiban/dangsanphamlenban', {
+                layoutVM: res.locals.layoutVM,
+                showError: false,
+                errorMsg: 'Đăng sản phẩm lên bán thành công. Cảm ơn!!!!'
+            });
+
 });
+
 r.post('/dangsanphamlenban', function(req, res) {
     console.log(req.body);
     var nTOD = moment(req.body.timetodie, 'D/M/YYYY').format('YYYY-MM-DDTHH:mm');
@@ -58,15 +63,15 @@ r.post('/dangsanphamlenban', function(req, res) {
         timetodie: nTOD,
         costtobuy: req.body.costtobuy,
     };
-
     nguoiban.insert(entity)
         .then(function(insertId) {
             res.render('nguoiban/dangsanphamlenban', {
                 layoutVM: res.locals.layoutVM,
                 showError: true,
-                errorMsg: 'Đăng ký thành công. Vui lòng đăng nhập để tiếp tục. Cảm ơn'
+                errorMsg: 'Đăng sản phẩm lên bán thành công. Cảm ơn!!!!'
             });
         });
+
 });
 
 r.post('/danhsachsanphamdadanglen', function(req, res) {
@@ -148,7 +153,6 @@ r.post('/kick', function(req, res) {
     };
     nguoiban.kick(entity).then(function(rows) {
         res.redirect(req.headers.referer);
-
         });
 });
 module.exports = r;

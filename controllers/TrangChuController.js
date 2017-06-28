@@ -3,8 +3,6 @@ var trangchuRepo = require('../models/trangchuRepo');
 var r = express.Router();
 
 r.get('/', function(req, res) {
-	
-    
     trangchuRepo.loadTrangChu()
         .then(function(data) {
             res.render('trangchu/index',
@@ -13,7 +11,7 @@ r.get('/', function(req, res) {
                 an: data.anhnen,
             	top5NhieuNhat:  data.SPNhieu, 
             	top5CaoNhat: data.SPCao, 
-            	top5SapHet :data.SPHet
+            	top5SapHet :data.SPHet,
             });
             
         });   
