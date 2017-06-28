@@ -2,6 +2,7 @@ var Q = require('q');
 var mustache = require('mustache');
 var db = require('../fn/db');
 var moment = require('moment');
+var mail = require('../fn/mailtouser');
 exports.insert = function(entity) {
 
     var deferred = Q.defer();
@@ -73,10 +74,47 @@ exports.loadPageByProduct_Sold = function(id,limit, offset) {
     });
     return deferred.promise;
 }
+
+exports.loadIDbyNameProduct= function(entity)
+{
+    var deferred = Q.defer();
+    var promises = [];
+    var sql = mustache.render('select MaSP from sanpham where TenSP = {{name}} ', entity);
+    promises.push(db.load(sql));
+    return deferred.promise;
+
+}
+exports.insertDetailProduct = function(entity) {
+
+    var deferred = Q.defer();
+
+    var sql =
+        mustache.render(
+            'insert into motasanpham(MaSP, LanMoTa, NoiDung, NgayDang) values ("{{id}}", "1", "{{describe}}", {{time}}})',
+            entity
+        );
+
+    db.insert(sql).then(function(insertId) {
+        deferred.resolve(insertId);
+    });
+
+    return deferred.promise;
+}
 exports.kick = function(entity) {
 
     var deferred = Q.defer();
     var promises=[];
+    
+    var sql5 = mustache.render (
+            'select * from nguoidung where MaKH={{nguoimua}}',
+            entity);
+    promises.push(db.load(sql5));
+    
+    var sql6= mustache.render (
+            'select * from sanpham where MaSP={{sanpham}}',
+            entity);
+    promises.push(db.load(sql6));
+
     var sql1 =
         mustache.render(
             'delete from nguoidungdaugiasp where NguoiDung={{nguoimua}} and SanPham={{sanpham}}',
@@ -100,10 +138,22 @@ exports.kick = function(entity) {
             entity);
     promises.push(db.insert(sql4));
     
-    Q.all(promises).spread(function(deleteID,updateID1,updateID2,insertID) {
-
+    
+    
+    Q.all(promises).spread(function(nguoimua,sp,deleteID,updateID1,updateID2,insertID) {
+        
+        var mailinfo = {
+                email : nguoimua[0].DiaChi,
+                subject : 'Bạn đã bị chặn khỏi đấu giá',
+                htmltext : 'Chào bạn <b>'+nguoimua[0].TenKH+'</b>,'
+                            +'<br><br>Auction.com xin được thông báo bạn đã bị người mua loại khỏi cuộc đấu giá'
+                            +'<br> cho sản phẩm '+sp[0].TenSP+' vào lúc '+ entity.ngay
+                            +'<br><br>Lý do:'+entity.lido
+            }
+        mail.mailtouser(mailinfo);
         deferred.resolve(1);
     });
-
+    
+    
     return deferred.promise;
 }

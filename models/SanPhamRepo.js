@@ -36,7 +36,6 @@ exports.loadPageByUser = function(id, limit, offset) {
     var deferred = Q.defer();
 
     var promises = [];
-
     var view = {
         id: id,
         limit: limit,
@@ -46,7 +45,7 @@ exports.loadPageByUser = function(id, limit, offset) {
     var sqlCount = mustache.render('select count(*) as total from sanpham where NguoiThangCuoc = {{id}}', view);
     promises.push(db.load(sqlCount));
 
-    var sql = mustache.render('select * from sanpham where NguoiThangCuoc = {{id}} limit {{limit}} offset {{offset}}', view);
+    var sql = mustache.render('select * from sanpham where NguoiThangCuoc = {{id}} and  Now() > ThoiGianHet limit {{limit}} offset {{offset}}', view);
     promises.push(db.load(sql));
 
     Q.all(promises).spread(function(totalRow, rows) {
@@ -89,15 +88,16 @@ exports.loadPageByUserToAuction = function(id,limit, offset) {
     var deferred = Q.defer();
 
     var promises = [];
-
     var view = {
         id: id,
         limit: limit,
-        offset: offset
+        offset: offset,
+        time: moment().format('YYYY-MM-DD')
+
     };
-     var sqlCount = mustache.render('select count(*) as total from sanpham s, nguoidungdaugiasp ng where ng.NguoiDung = {{id}} and s.NguoiThangCuoc = 0 and ng.SanPham = s.MaSP', view);
+     var sqlCount = mustache.render('select count(*) as total from sanpham s, nguoidungdaugiasp ng where ng.NguoiDung = {{id}} and Now() < ThoiGianHet and ng.SanPham = s.MaSP', view);
     promises.push(db.load(sqlCount));
-   var sql = mustache.render('select * from sanpham s,nguoidungdaugiasp ng where ng.NguoiDung = {{id}} and s.NguoiThangCuoc = 0 and ng.SanPham = s.MaSP limit {{limit}} offset {{offset}}', view);
+   var sql = mustache.render('select * from sanpham s,nguoidungdaugiasp ng where ng.NguoiDung = {{id}} and  Now() < ThoiGianHet and ng.SanPham = s.MaSP limit {{limit}} offset {{offset}}', view);
     promises.push(db.load(sql));
 
     Q.all(promises).spread(function(totalRow, rows) {
@@ -131,20 +131,21 @@ exports.loadDetail = function(idSP, idUser) {
 
     var promises = [];
 
-    var sql1 = 'select * from sanpham s,danhmuc dm where MaSP = ' + idSP+' and s.DanhMuc=dm.MaDanhMuc';
+    var sql1 = 'select * from sanpham s, danhmuc dm where s.MaSP = ' + idSP+' and s.DanhMuc = dm.MaDanhMuc';
     promises.push(db.load(sql1));
-
-    var sql2 = 'select * from sanpham s,nguoidung nd where s.NguoiDang=nd.MAKH and s.MaSP='+idSP;
+console.log(sql1);
+    var sql2 = 'select * from sanpham s, nguoidung nd where s.NguoiDang = nd.MAKH and s.MaSP='+idSP;
     promises.push(db.load(sql2));
-
-    var sql3 = 'select * from sanpham s,motasanpham mt where s.MaSP=mt.maSP and s.MaSP='+idSP;
+    console.log(sql2);
+    var sql3 = 'select * from sanpham s, motasanpham mt where s.MaSP = mt.maSP and s.MaSP ='+idSP;
     promises.push(db.load(sql3));
-
+    console.log(sql3);
     var sql4 = 'select count(*) as total from nguoidungyeuthichsp where NguoiDung='+idUser+' and SanPham='+idSP;
     promises.push(db.load(sql4));
-    
+    console.log(sql4);
     var sql5 = 'select count(*) as total from nguoidungbicamsp where NguoiDung='+idUser+' and SanPham='+idSP;
     promises.push(db.load(sql5));
+console.log(sql5);
     Q.all(promises).spread(function(rowsSP, rowsND, rowsMT,rowsYT,rowsC) {
         var data = {
             product: rowsSP,
@@ -153,6 +154,7 @@ exports.loadDetail = function(idSP, idUser) {
             liked : rowsYT[0].total,
             banned : rowsC[0].total
         }
+        console.log(data);
         deferred.resolve(data);
     });
     return deferred.promise;
@@ -226,3 +228,4 @@ exports.lichsudaugia = function(id) {
     });
     return deferred.promise;
 }
+
