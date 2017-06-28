@@ -31,16 +31,16 @@
 {{#if layoutVM.isLogged }}
 <div class="row">
      <div class="col-md-3">
-        {{> nguoiban this }}
+        {{> quantri this }}
     </div>
     <br><br>
     <div  class="col-md-9">
-        <div class="panel panel-default">
+		<div class="panel panel-default">
             <div class="panel-heading" style="background-color: #189eff; color: white; font-size: 18px;font-weight: normal;line-height: 15px;">
                 Thông tin cá nhân
             </div>
             <div class="panel-body">
-                    <center> <h2> THÔNG TIN CÁ NHÂN </h2></center>
+					<center> <h2> THÔNG TIN CÁ NHÂN </h2></center>
                         <br></br>
                 <form class="form-horizontal" method="post" action="" id="frmLogin">
                     <div class="form-group">
@@ -64,7 +64,7 @@
                     <div class="form-group">
                         <label for="txtDOB" class="col-sm-3 control-label">Ngày sinh</label>
                         <div class="col-sm-6">
-                            <p name="dob"> {{formatTime layoutVM.curUser.dob}}</p>
+                            <input type="text" class="form-control datepicker" id="txtDOB" value = "{{layoutVM.curUser.dob}}" name="dob" readonly>
                         </div>
                     </div>
                 </form>
@@ -75,6 +75,6 @@
 <br>
 <br>
 {{else}}
-    <li><a href="/taikhoan/dangnhap">Đăng nhập</a></li>
-    <li><a href="/taikhoan/dangki">Đăng ký</a></li>
+	<li><a href="/taikhoan/dangnhap">Đăng nhập</a></li>
+	<li><a href="/taikhoan/dangki">Đăng ký</a></li>
 {{/if}}

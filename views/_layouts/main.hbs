@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Auction</title>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="/assests/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/assests/user-defined-dist/style.css">
-	<link rel="stylesheet" type="text/css" href="/assests/user-defined-dist/main.css">
-	{{{_sections.css}}}
-</head>
-<body style="background-color: #F4F4F4;">
-	<form id="frmLogout" method="post" action="/taikhoan/dangxuat"></form>
-      
-	<div class="container-fluid">
-		{{> header}}
-		{{> navbar}}
-		{{{_sections.customnavbar}}}
-    		<div class="row">
-      			<div class="col-sm-0 col-md-1 col-lg-1">&nbsp;</div>
-      			<div class="col-sm-12 col-md-10 col-lg-10">
-        			{{{body}}}
-      			</div>
-      			<div class="col-sm-0 col-md-1 col-lg-1">&nbsp;</div>
-    		</div>
-    		{{> footer}} 
-  	</div>
-	<script type="text/javascript" src="/assests/jquery-3.2.0.min.js"></script>
-	<script type="text/javascript" src="/assests/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-	
-	<script type="text/javascript">
+    <head>
+        <title>Auction</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="/assets/bootstrap-3.3.4-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/assets/user-defined-dist/style.css">
+        <link rel="stylesheet" type="text/css" href="/assets/user-defined-dist/main.css">
+        {{{_sections.css}}}
+    </head>
+    <body style="background-color: #F4F4F4;"">
+        <form id="frmLogout" method="post" action="/taikhoan/dangxuat"></form>
+        <div class="container-fluid" >
+            {{> header}}
+            {{> navbar}}
+            {{{_sections.customnavbar}}}
+            <div class="row">
+                <div class="col-sm-0 col-md-1 col-lg-1">&nbsp;</div>
+                <div class="col-sm-12 col-md-10 col-lg-10">
+                    {{{body}}}
+                </div>
+                <div class="col-sm-0 col-md-1 col-lg-1">&nbsp;</div>
+            </div>
+            {{> footer}}
+        </div>
+        
+        <script type="text/javascript" src="/assets/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="/assets/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/assets/user-defined-dist/main.js"></script>
+        <script type="text/javascript">
             $('#logoutLink').on('click', function () {
                 $('#frmLogout').submit();
             });
         </script>
-	{{{_sections.js}}}
-</body>
+        {{{_sections.js}}}
+    </body>
 </html>

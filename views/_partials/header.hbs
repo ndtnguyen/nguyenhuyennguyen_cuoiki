@@ -1,51 +1,69 @@
+{{#section 'js'}}
+    <script src="/assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/assets/jquery-validation-1.12.0/jquery.validate.min.js"></script>   
+    <script type="text/javascript">
+       document.getElementById()
+    </script>
+{{/section}}
+
 <div class="row heading">
-	<!--Logo-->
-	<div class="col-sm-1 col-md-1 col-lg-1"></div> 
-	<div class="col-sm-2 col-md-2 col-lg-2"> 			
-		<div class="logo">
-      		<a href="/">
-			<img src="/imgs/Auction.png"/>	
-      		</a>
-		</div>
-	</div>
-	
-	<!--Search input-->
-	<div class="col-sm-4 col-md-4 col-lg-4 TimKiemSP">
-		<div class="input-group">
-     			<input type="text" class="form-control inputext" placeholder="Tìm danh mục, sản phẩm mong muốn.....">
-      			<span class="input-group-btn">
-        			<button class="btn btn-secondary inputext" type="button">Tìm kiếm</button>
-      			</span>
-    		</div>
-	</div>
-	
-	<!--Log in/Log out/Register-->
-	<div class="col-sm-1 col-md-1 col-lg-1"></div>
-	<div class="col-sm-4 col-md-4 col-lg-4 " style="padding-top: 15px;" >
-		{{#if layoutVM.isLogged }}
-            	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="font-size: 15pt;
+  <!--Logo-->
+  <div class="col-sm-1 col-md-1 col-lg-1"></div> 
+  <div class="col-sm-2 col-md-2 col-lg-2">      
+    <div class="logo">
+          <a href="/">
+        <img src="/imgs/Auction.png"/>  
+          </a>
+    </div>
+  </div>
+  <!--Search input-->
+  <div class="col-sm-4 col-md-4 col-lg-4 TimKiemSP">
+    <div class="input-group">
+        <input type="text" class="form-control inputext" placeholder="Tìm danh mục, sản phẩm mong muốn.....">
+          <span class="input-group-btn">
+            <button class="btn btn-secondary inputext" type="button">Tìm kiếm</button>
+          </span>
+      </div>
+  </div>
+  <!--Sign up-->
+  <div class="col-sm-1 col-md-1 col-lg-1"></div>
+  <div class="col-sm-4 col-md-4 col-lg-4 " style="padding-top: 15px;" >
+    {{#if layoutVM.isLogged }}
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="font-size: 15pt;
             text-decoration:none;color: white !important;">
-                	Xin chào <b>{{ layoutVM.curUser.name }}</b> 
-                	<span class="caret"></span>
-            	</a>
+                Xin chào <b>{{ layoutVM.curUser.name }}</b> 
+                <span class="caret"></span>
+            </a>
                 <ul class="dropdown-menu" style="float: right">
-                    <li><a href="/taikhoan/thongtin">Thông tin cá nhân</a></li>
-                    <li role="separator" class="divider"></li>
+                
+                {{#ifCond layoutVM.curUser.permission 0}}
+                    {{> nguoimua this}}
+                {{/ifCond}}
+                {{#ifCond layoutVM.curUser.permission 1}}
+                    {{> nguoiban this}}
+                {{/ifCond}}
+                {{#ifCond layoutVM.curUser.permission 2}}
+                    {{> quantri this}}
+                {{/ifCond}}
+
+                  <li role="separator" class="divider"></li>
                     <li><a id="logoutLink" href="javascript:;">Thoát</a></li>
                 </ul>
-    		{{else}}
-            	<a href="/taikhoan/dangnhap" class="EditButtonLogin">
-        		<img src="/imgs/DangNhap.png">
-        		<div style="color: #fff !important; display: inline-block; font-size: 130%;"> 
-          			Đăng nhập
-        		</div>
-      		</a>
-      		<a href="/taikhoan/dangki" class="EditButtonLogin">
-	    		<img src="/imgs/DangKi.png" /> 
-                	<div style="color: #fff !important; display: inline-block; font-size: 130%;">   
-				Đăng kí	
-                	</div> 
-      		</a>	
-    		{{/if}}
-	</div>
+        {{else}}
+            <a href="/taikhoan/dangnhap" class="EditButtonLogin">
+          <img src="/imgs/DangNhap.png">
+          <div style="color: #fff !important; display: inline-block; font-size: 130%;"> 
+              Đăng nhập
+          </div>
+        </a>
+        <a href="/taikhoan/dangki" class="EditButtonLogin">
+        <img src="/imgs/DangKi.png" /> 
+                <div style="color: #fff !important; display: inline-block; font-size: 130%;">   Đăng kí  
+                </div> 
+        </a>  
+    {{/if}}
+      
+  </div>
+
+  
 </div>

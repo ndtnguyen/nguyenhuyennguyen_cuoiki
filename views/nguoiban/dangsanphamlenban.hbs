@@ -95,7 +95,28 @@
             },
          });
 
+         document.getElementById("txt1").value = cmb.value;
+            function Show() {
+            var cmb = document.getElementById("cmb");            
+            document.getElementById("txt1").value = cmb.value;
+            //document.getElementById("txt2").value = cmb.options[cmb.selectedIndex].text;    
+        }
+        function file_change(f){
 
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+
+                var img = document.getElementById("img");
+
+                img.src = e.target.result;
+
+                img.style.display = "inline";
+                
+            };
+
+            reader.readAsDataURL(f.files[0]);
+            document.getElementById("image").value = f.value; }
     </script>
 {{/section}}
 {{#if layoutVM.isLogged }}
@@ -111,99 +132,121 @@
             </div>
         </div>
     
-    </div>
+    </div><!--END COL-3-->
     <div  class="col-md-9">
         <div class="panel panel-default">
             <div class="panel-heading" style="background-color: #189eff; color: white; font-size: 18px;font-weight: normal;line-height: 15px;">
                 Đăng sản phẩm lên bán
             </div>
             <div class="panel-body">
-                   <center> <h2> THÔNG TIN SẢN PHẨM </h2></center>
-                        <br></br>
-                        {{#if showError }}
-                            <div class="alert alert-warning alert-dismissible detail-content" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <strong>Warning!</strong> {{ errorMsg }}
+        
+                <div  class="col-md-9">
+               <center> <h2> THÔNG TIN SẢN PHẨM </h2></center>
+                    <br></br>
+                    {{#if showError }}
+                        <div class="alert alert-warning alert-dismissible detail-content" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Warning!</strong> {{ errorMsg }}
+                        </div>
+                    {{/if}}
+                    <form class="form-horizontal" method="post" action="" id="frmAddNewProduct">
+                        <div class="form-group">
+                            <label for="txtProductName" class="col-sm-4 col-md-4 col-lg-4 control-label">Tên sản phẩm</label>
+                            <div class="col-sm-7 ">
+                                <input type="hidden" class="form-control" id="UserID" name="id" value="{{ layoutVM.curUser.id }}"/>
+                                <input type="text" class="form-control" id="txtProName" placeholder= "Nhập tên sản phẩm" name="name">
                             </div>
-                        {{/if}}
-                        <form class="form-horizontal" method="post" action="" id="frmAddNewProduct">
-                            <div class="form-group">
-                                <label for="txtProductName" class="col-sm-3 col-md-3 col-lg-3 control-label">Tên sản phẩm</label>
-                                <div class="col-sm-6 ">
-                                    <input type="hidden" class="form-control" id="UserID" name="id" value="{{ layoutVM.curUser.id }}"/>
-                                    <input type="text" class="form-control" id="txtProName" placeholder= "Nhập tên sản phẩm" name="name">
-                                </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="txtCostProduct" class="col-sm-4 col-md-4 col-lg-4 control-label">Giá khởi điểm</label>
+                            <div class="col-sm-7 ">
+                                <input type="number" min = "100" class="form-control" id="txtCost" placeholder= "Nhập giá khởi điểm" name="cost">
                             </div>
-                            <div class="form-group">
-                                <label for="txtCostProduct" class="col-sm-3 col-md-3 col-lg-3 control-label">Giá khởi điểm</label>
-                                <div class="col-sm-6 ">
-                                    <input type="number" min = "100" class="form-control" id="txtCost" placeholder= "Nhập giá khởi điểm" name="cost">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtImage" class="col-sm-4 col-md-4 col-lg-4 control-label">Chọn ảnh đại diện cho sản phẩm</label>
+                            <div class="col-sm-7 ">
+                                <input type ="hidden" id ="image" name ="image">
+                                <input id="f" type="file" onchange="file_change(this)" style="display: none" />
+                                <input type="button" value="Chọn ảnh" onclick="document.getElementById('f').click()" />
                             </div>
-                            <div class="form-group">
-                                <label for="txtImage" class="col-sm-3 col-md-3 col-lg-3 control-label">Chọn ảnh đại diện cho sản phẩm</label>
-                                <div class="col-sm-6 ">
-                                    <input type="file" class="form-control" id="txtImage" name="image">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtStep" class="col-sm-4 col-md-4 col-lg-4 control-label">Chọn bước giá</label>
+                            <div class="col-sm-7 ">
+                             <input type="number" name="step" min="10000" max="1000000" id="txtStep" name="step" class="form-control">
                             </div>
-                            <div class="form-group">
-                                <label for="txtStep" class="col-sm-3 col-md-3 col-lg-3 control-label">Chọn bước giá</label>
-                                <div class="col-sm-6 ">
-                                 <input type="number" name="step" min="10000" max="1000000" id="txtStep" name="step" class="form-control">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtCostToBuy" class="col-sm-4 col-md-4 col-lg-4 control-label">Giá mua ngay (nếu cần)</label>
+                            <div class="col-sm-7 ">
+                                <input type="number" class="form-control" min = "0" id="txtCostToBuy" name="costtobuy">
                             </div>
-                            <div class="form-group">
-                                <label for="txtCostToBuy" class="col-sm-3 col-md-3 col-lg-3 control-label">Giá mua ngay (nếu cần)</label>
-                                <div class="col-sm-6 ">
-                                    <input type="number" class="form-control" min = "0" id="txtCostToBuy" name="costtobuy">
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtType" class="col-sm-4 col-md-4 col-lg-4 control-label">Loại danh mục </label>
+                            <div class="col-sm-7 ">
+                            <select class="form-control" id="cmb" onchange="Show();" >
+                                {{#each layoutVM.danhmuc }}
+                                    <option value="{{MaDanhMuc}}"> {{TenDanhMuc}}</option>
+                                   {{/each}}
+                            </select>
+                           
+                            <input  type ="hidden" id="txt1" name ="type"/>
+                            <script type="text/javascript" >
+                                 document.getElementById("txt1").value = cmb.value;
+                                function Show() {
+                                    var cmb = document.getElementById("cmb");            
+                                    document.getElementById("txt1").value = cmb.value;             
+                                }
+                            </script>
                             </div>
-                            <div class="form-group">
-                                <label for="txtType" class="col-sm-3 col-md-3 col-lg-3 control-label">Loại danh mục </label>
-                                <div class="col-sm-6 ">
-                                    <input type="hidden" name="type" id="txtType" value ={{layoutVM.mamucdautien}}>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtTime" class="col-sm-4 col-md-4 col-lg-4 control-label">Thời gian đăng</label>
+                            <div class="col-sm-7 ">
+                                <input type="text" class="form-control datepicker" value = "{{now}}" name="time" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDOB" class="col-sm-4 col-md-4 col-lg-4 control-label">Thời gian hết hạn</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control datepicker" id="txtDOB" placeholder="d/m/yyyy" name="timetodie">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDescribe" class="col-sm-4 col-md-4 col-lg-4 control-label">Mô tả sản phẩm</label>
+                            <div class="col-sm-7 ">
+                                <textarea rows="4" cols="63" name="describe" form="frmAddNewProduct"></textarea>
+                            </div>
 
-                                    <select class="form-control" id="selectCategory">
-                                        {{#each layoutVM.danhmuc }}
-                                        <option value="{{MaDanhMuc}}"> {{TenDanhMuc}}</option>
-                                       {{/each}}
-                                      </select>
+                        </div>
+                        <div class="form-group">
+                             <div class="form-group">
+                                <div class="col-sm-offset-5 col-sm-10">
+                                    <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-check"></i>
+                                        Đăng
+                                    </button>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="txtTime" class="col-sm-3 col-md-3 col-lg-3 control-label">Thời gian đăng</label>
-                                <div class="col-sm-6 ">
-                                    <input type="text" class="form-control datepicker" value = "{{now}}" name="time" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="txtDOB" class="col-sm-3 col-md-3 col-lg-3 control-label">Thời gian hết hạn</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control datepicker" id="txtDOB" placeholder="d/m/yyyy" name="timetodie">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="txtDescribe" class="col-sm-3 col-md-3 col-lg-3 control-label">Mô tả sản phẩm</label>
-                                <div class="col-sm-6 ">
-                                    <textarea rows="4" cols="63" name="describe" form="frmAddNewProduct"></textarea>
-                                </div>
-
-                            </div>
-                            <div class="form-group">
-                                 <div class="form-group">
-                                    <div class="col-sm-offset-5 col-sm-10">
-                                        <button type="submit" class="btn btn-success">
-                                        <i class="fa fa-check"></i>
-                                            Đăng
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                       </form>
+                        </div>
+                   </form>
             </div>
-        </div>
+            <div class="col-md-3" style= "margin-top: 20px; margin-left: -30px;">
+            <img id="img" style="display: none"  width="200px" height ="200px"/>
+            <br><br>
+            <center><b style="margin-top: 650px;">Ảnh minh họa</b></center>
+            </div>
+     </div>
     </div>
-</div>
+    </div><!-- END COL-9--->
+
+
+
+
+</div><!-- END ROW-->
 <br>
 <br>
 {{else}}

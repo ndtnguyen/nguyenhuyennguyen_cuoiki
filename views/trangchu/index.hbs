@@ -1,5 +1,5 @@
 {{#section 'css'}}
-    <link rel="stylesheet" href="/assets/dist/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/dist/css/swiper.min.css">
     <style>
     
     body {
@@ -46,7 +46,7 @@
         <div class="panel panel-default">
             <div class="panel-heading" id ="danhmucsanpham">Danh mục sản phẩm</div>
                 <div class="list-group">
-				{{#each layoutVM.danhmuc}}
+        {{#each layoutVM.danhmuc}}
                     <a href="/sanpham/theodanhmuc/{{MaDanhMuc}}" class="list-group-item">
                     <img src="{{link}}"> {{TenDanhMuc}}</a>
                 {{/each}}
@@ -102,10 +102,12 @@
                               <div class="swiper-container">
                                   <div class="swiper-wrapper">
                                   {{#each top5NhieuNhat}}
-                                    <a href="/sanpham/chitiet/{{SanPham}}" class="TenSanPham">
+                                    
                                       <div class="swiper-slide">
+                                       
                                           <div class="thumbnail">
                                            <center> 
+                                               <a href="/sanpham/chitiet/{{SanPham}}" class="TenSanPham">
                                              <img src="/Imgs/sp/{{SanPham}}/1.jpg" alt="{{TenSP}}" style="width: 60%;">
                                               <div class="caption">
                                                        {{TenSP}}   
@@ -135,15 +137,19 @@
                                                         <div>&nbsp;Phút</div>
                                                         <div>Giây</div>   
                                                   </div>
-                                                  <div class="NhapGiaVaDauGia">
-                                                       <div><input type="text" class="form-control GiaSanPham" value="{{GiaHienTai}}"/ readonly=""> </div>
+                                                  <div class="row">
+                                                  <div class="col-md-6" style="text-align: right;">Giá hiện tại: </div>
+                                                  <div class="col-md-6" style="text-align: left; color: red;"">
+                                                     <b>{{formatNumber GiaHienTai}} ₫</b>
                                                   </div>
+                                                    </div>
                                                  Tổng số lượt: {{SoLuotDat}}
                                               </div>
+                                              </a>
                                            </center>
                                           </div>
                                       </div>
-                                      </a>
+                                      
                                       {{/each}}
                               </div>
                               <!-- Add Pagination -->
@@ -166,10 +172,11 @@
                               <div class="swiper-container">
                                   <div class="swiper-wrapper">
                                   {{#each top5CaoNhat}}
-                                  <a href="/sanpham/chitiet/{{MaSP}}" class="TenSanPham">
+                                  
                                       <div class="swiper-slide">
                                           <div class="thumbnail">
                                            <center> 
+                                            <a href="/sanpham/chitiet/{{MaSP}}" class="TenSanPham">
                                              <img src="Imgs/sp/{{MaSP}}/1.jpg" alt="{{TenSP}}" style="width: 60%;">
                                               <div class="caption">
                                                        {{TenSP}}
@@ -199,14 +206,18 @@
                                                         <div>&nbsp;Phút</div>
                                                         <div>Giây</div>   
                                                   </div>
-                                                  <div class="NhapGiaVaDauGia">
-                                                       <div><input type="text" class="form-control GiaSanPham" value="{{GiaHienTai}}"/ readonly=""> </div>
+                                                <div class="row">
+                                                  <div class="col-md-6" style="text-align: right;">Giá hiện tại: </div>
+                                                  <div class="col-md-6" style="text-align: left; color: red;"">
+                                                     <b>{{formatNumber GiaHienTai}} ₫</b>
                                                   </div>
+                                                    </div>
                                               </div>
+                                              </a>
                                            </center>
                                           </div>
                                       </div>
-                                      </a>
+                                      
                                       {{/each}}
                               </div>
                               <!-- Add Pagination -->
@@ -227,10 +238,11 @@
                               <div class="swiper-container">
                                   <div class="swiper-wrapper">
                                   {{#each top5SapHet}}
-                                  <a href="/sanpham/chitiet/{{MaSP}}" class="TenSanPham">
+                                  
                                       <div class="swiper-slide">
                                           <div class="thumbnail">
                                            <center> 
+                                            <a href="/sanpham/chitiet/{{MaSP}}" class="TenSanPham">
                                              <img src="Imgs/sp/{{MaSP}}/1.jpg" alt="{{TenSP}}" style="width: 60%;">
                                               <div class="caption">
                                                        {{TenSP}}
@@ -260,40 +272,43 @@
                                                         <div>&nbsp;Phút</div>
                                                         <div>Giây</div>   
                                                   </div>
-                                                  Giá hiện tại:
-                                                  <div class="NhapGiaVaDauGia">
-                                                        <div><input type="text" class="form-control GiaSanPham" value="{{GiaHienTai}}"/ readonly=""> </div>
-                                        
+                                                  <div class="row">
+                                                  <div class="col-md-6" style="text-align: right;">Giá hiện tại: </div>
+                                                  <div class="col-md-6" style="text-align: left; color: red;"">
+                                                     <b>{{formatNumber GiaHienTai}} ₫</b>
                                                   </div>
+                                                    </div>
                                               </div>
+                                              </a>
                                            </center>
                                           </div>
                                       </div>
-                                      </a>
+                                      
                                       {{/each}}
-                              </div>
-                              <!-- Add Pagination -->
-                              <div class="swiper-pagination"></div>
-                              <!-- Add Arrows -->
-                              <div class="swiper-button-next"></div>
-                              <div class="swiper-button-prev"></div>
-                              </div>            
+                                </div>
+                                <!-- Add Pagination -->
+                                <div class="swiper-pagination"></div>
+                                <!-- Add Arrows -->
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                                </div>            
                            </div>
               </div>
     </div>
      <br/>
 
      {{#section 'js'}}
-<!-- Swiper JS -->
-    <script src="/assets/dist/js/swiper.min.js"></script>
+     
+    <script type="text/javascript" src="/assets/dist/js/swiper.min.js"> </script>
+    <!-- Swiper JS -->
     <script>
     var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         paginationClickable: true,
-        slidesPerView: 4,
+        slidesPerView: 3,
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
-        spaceBetween: 5
+        spaceBetween: 10
     });
     </script>
     <script type="text/javascript">
@@ -319,9 +334,12 @@
         initializeClock('clock{{MaSP}}CN', deadline2);
       {{/each}}
 
+      var deadline3;
       {{#each top5SapHet}}
-       
-        initializeClock('clock{{MaSP}}SH', deadline1);
+        var sumGiayText = {{Giay}};
+        var sumGiay = parseInt(sumGiayText);
+        deadline3 = new Date(Date.parse(new Date()) + sumGiay*1000);
+        initializeClock('clock{{MaSP}}SH', deadline3);
       {{/each}}
 
     </script>

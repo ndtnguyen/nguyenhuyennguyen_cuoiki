@@ -1,0 +1,27 @@
+
+
+<a href="/nguoimua/profile" class="list-group-item">Thông tin cá nhân</a>
+<a href="/nguoimua/chinhsuathongtincanhan" class="list-group-item">Chỉnh sửa thông tin cá nhân</a>
+<form class="form-horizontal" method="post" action="/nguoimua/dsspthamgiadaugia" id="frmUserId1">
+  <input type="hidden" class="form-control" id="txtID1" name="id" value= "{{ layoutVM.curUser.id }}" > 
+     <button type="submit" class="btn btn-defalt list-group-item" style=" background-color: #fff; border: none; font-size:12px;">
+            <i class="fa fa-check"></i>
+        Danh sách sản phẩm tham gia đấu giá
+     </button>
+</form>
+<form class="form-horizontal" method="post" action="/nguoimua/danhsachsanphamdathang" id="frmUserId2">
+  <input type="hidden" class="form-control" id="txtID2" name="id" value= "{{ layoutVM.curUser.id }}" > 
+     <button type="submit" class="btn btn-defalt list-group-item" style=" background-color: #fff; border: none; font-size:13px;">
+            <i class="fa fa-check"></i>
+        Danh sách sản phẩm đã thắng
+     </button>
+</form> 
+<form class="form-horizontal" method="post" action="/nguoimua/danhsachsanphamyeuthich" id="frmUserId3">
+  <input type="hidden" class="form-control" id="txtID3" name="id" value= "{{ layoutVM.curUser.id }}" > 
+     <button type="submit" class="btn btn-defalt list-group-item" style=" background-color: #fff; border: none;font-size:13px;">
+            <i class="fa fa-check"></i>
+        Danh sách sản phẩm yêu thích
+     </button>
+</form>
+<a href="/nguoimua/danhgia" class="list-group-item">Đánh giá của người bán</a>
+<a href="/nguoimua/xinquyenduocban" class="list-group-item">Xin quyền để trở thành người bán</a>

@@ -1,54 +1,55 @@
 {{#section 'css'}}
 <style type="text/css">
-	.carousel-control {
-		background: none !important;
-		filter: progid: none !important;
-		outline: 0;
-	}
-	.carousel {
-		width: 400px !important;
-		height: 400px !important;
-	}
-	.carousel-inner img {
-  		margin: auto !important;
-	}
-	.detail-content {
-		background-color: white;
-		margin-top: 50px;
-		margin-bottom: 50px;
-	}
-	#addresslink {
+    .carousel-control {
+        background: none !important;
+        filter: progid: none !important;
+        outline: 0;
+    }
+    .carousel {
+        width: 400px !important;
+        height: 400px !important;
+    }
+    .carousel-inner img {
+        margin: auto !important;
+    }
+    .detail-content {
+        background-color: white;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    #addresslink {
             padding-left: 10px; 
-            background-color: #EFEFEF;
-    	}
-    	.likebtn {
-      		-webkit-border-radius: 5;
-      		-moz-border-radius: 5;
-      		border-radius: 5px;
-     	 	font-family: Arial;
-		color: #ffffff;
-		font-size: 16px;
-		background: #f03838;
-		padding: 10px 20px 10px 20px;
-		text-decoration: none;
-    	}
+            color: blue;  
+            background-color: #EFEFEF;"
+            border: 1px solid;
+        }
+        .likebtn {
+            -webkit-border-radius: 5;
+            -moz-border-radius: 5;
+            border-radius: 5px;
+            font-family: Arial;
+        color: #ffffff;
+        font-size: 16px;
+        background: #f03838;
+        padding: 10px 20px 10px 20px;
+        text-decoration: none;
+        }
 
-    	.likebtn:hover {
-      		background: #e64c4c;
-      		color: white;
-    	}
+        .likebtn:hover {
+            background: #e64c4c;
+            color: white;
+        }
 </style>
 {{/section}}
 
 {{#section 'js'}}
 <script type="text/javascript">
-	$('a').hover (function(){
-		$(this).css('text-decoration','none');
-	});
-	
+    $('a').hover (function(){
+        $(this).css('text-decoration','none');
+    });
+    
 </script>
 {{/section}}
-
 {{#section 'customnavbar'}}
 {{#each sanpham}}
 <div class="row" id="addresslink">
@@ -65,158 +66,155 @@
 {{/section}}
 
 <div class="row detail-content">
-	<!--Hình ảnh sản phẩm-->
-	<div class="col-sm-5 col-md-5 col-lg-5">
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-		  	<!-- Indicators -->
-		  	<ol class="carousel-indicators">
-		    	<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-		    	<li data-target="#myCarousel" data-slide-to="1"></li>
-		    	<li data-target="#myCarousel" data-slide-to="2"></li>
-		  	</ol>
-		  	
-		  	<!-- Wrapper for slides -->
-			{{#each sanpham }}
-		  	<div class="carousel-inner">
-				<div class="item active">
-					<img src="/imgs/sanpham/{{MaSP}}/1.jpg">
-				</div>
+    <!--Hình ảnh sản phẩm-->
+    <div class="col-sm-5 col-md-5 col-lg-5">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+            
+            <!-- Wrapper for slides -->
+            {{#each sanpham }}
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="/imgs/sanpham/{{MaSP}}/1.jpg">
+                </div>
 
-				<div class="item">
-					<img src="/imgs/sanpham/{{MaSP}}/2.jpg">
-				</div>
+                <div class="item">
+                    <img src="/imgs/sanpham/{{MaSP}}/2.jpg">
+                </div>
 
-					<div class="item">
-					<img src="/imgs/sanpham/{{MaSP}}/3.jpg" >
-				</div>
-		  	</div>
-		  	{{/each}} 	
-		  	<!-- Left and right controls -->
-		  	<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-		    	<span class="glyphicon glyphicon-chevron-left"></span>
-		    	<span class="sr-only">Previous</span>
-		  	</a>
-		  	<a class="right carousel-control" href="#myCarousel" data-slide="next">
-		    	<span class="glyphicon glyphicon-chevron-right"></span>
-		    	<span class="sr-only">Next</span>
-		  	</a>
-		</div>	
-	</div>
-	<!--Thông tin sản phẩm-->
-	<div class="col-sm-7 col-md-7 col-lg-7">
-		<!--Tên sản phẩm-->
-		<div class="row">
-			{{#each sanpham}}
-                	<h1><b>{{TenSP}}</b></h1>
-                	<hr>
-                	{{/each}}
-		</div>
-			
-		<!--Thông tin chi tiết-->
-		<div class="row">
-			<!--Thông tin đấu giá-->
-			<div class="col-sm-12 col-md-6 col-lg-6" style="line-height: 30px;"> 
-				{{#each nguoiban}}
-                		<b>Người bán:</b> <a href="#">{{Username}}</a>
-                		{{/each}}
-				<br>
-				{{#each sanpham}}
-				<b>Giá bán:</b> 
-				{{formatNumber GiaKhoiDiem}}đ
-                		<br>
-				<b>Giá cao nhất hiện tại:</b>
-                		<span style="color: red; font-weight:bold;"> 
-                			{{#if GiaHienTai}}
-                				{{formatNumber GiaHienTai}}đ
-                			{{else}}
-                				Chưa có
-                			{{/if}}
-                		</span>
-                		<br>
-                		<b>Bước giá:</b>
-                		{{formatNumber BuocGia}}đ
-                		<br>
-                		{{#if GiaMuaNgay}}
-                			<b>Giá mua ngay:</b>
-                			<span style="color: red; font-weight:bold"> 
-                    				{{formatNumber GiaMuaNgay}}đ
-                			</span>
-				<br>
-                		{{/if}}
-				Ngày đăng: {{formatTime NgayDang}}
-				<br>
-				Ngày hết hạn: {{formatTime ThoiGianHet}}
-				{{/each}}
-				
-			</div>
-				
-			<!--Thông tin chi tiết sản phẩm-->
-			<div class="col-md-6">
-				<div style="font-weight: bold; font-size: 15pt;margin-bottom: 5px;">
-					Thông tin sản phẩm 
-				</div>
-				<ul>
-					{{#each mota}}
-					<li>{{NoiDung}}</li>
-					{{/each}}
-				</ul>
-			</div>
-		</div>
-		<hr>
-		<!--Input đấu giá-->
-		{{#if layoutVM.isLogged}}
-		{{#ifCond banned 0}}
-		{{#ifCond layoutVM.curUser.permission 0}}
-		
-		<div class="row" >
-			{{#each sanpham}}
-			<form method="post" action="/sanpham/daugia/{{MaSP}}">
-				<div class="form-group">
-					<label for="userprice"> Giá của bạn:</label>
-					<input type="text" id="userprice" name="giaDG">
-					<button type="submit" class="btn btn-danger" style="margin-left: 10px;">
-						Đấu giá
-					</button>
-				</div>	
-			</form>
-			{{/each}}
-			{{#if liked}}
-			
-			{{#each sanpham}}
-            		<form class="form-horizontal" id="frmAddItem" method="post" action="/sanpham/huyyeuthich/{{MaSP}}">
-                	{{/each}}
-	            		<div class="form-group">
-	                		<div class="col-sm-4">
-	                    			<button class="btn likebtn" type="submit" data-toggle="modal" data-target="#myModal" name="likebutton">
-	                    				<span class="glyphicon glyphicon-ok"></span>
-	                        			Đã thêm vào yêu thích
-	                    			</button>
-	            			</div>
-	            		</div>
-			</form>
-	        	{{else}}
-	        	{{#each sanpham}}
-	        	<form class="form-horizontal" id="frmAddItem" method="post" action="/sanpham/themyeuthich/{{MaSP}}">
-                	{{/each}}
-	            		<div class="form-group">
-	                		<div class="col-sm-4">
-	                    			<button class="btn likebtn" type="submit" data-toggle="modal" data-target="#myModal" name="likebutton">
-	                    				<span class="glyphicon glyphicon-heart"></span>
-	                    				Thêm vào yêu thích
-	                    			</button>
-	                		</div>
-	            		</div>
-			</form>
-			{{/if}}
-		{{/ifCond}}
-		{{#each sanpham}}
-		<a href="/sanpham/lichsudaugia/{{MaSP}}" style="display: inline-block;padding-left: 10px;"> Xem lịch sử đấu giá </a>
-		{{/each}}
-			
-		</div>
-		{{/ifCond}}
-		{{/if}}
-		
-	</div>
+                <div class="item">
+                    <img src="/imgs/sanpham/{{MaSP}}/3.jpg" >
+                </div>
+            </div>
+            {{/each}}   
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>  
+    </div>
+    <!--Thông tin sản phẩm-->
+    <div class="col-sm-7 col-md-7 col-lg-7">
+        <!--Tên sản phẩm-->
+        <div class="row">
+            {{#each sanpham}}
+                <h1><b>{{TenSP}}</b></h1>
+                <hr>
+            {{/each}}
+        </div>
+            
+        <!--Thông tin chi tiết-->
+        <div class="row">
+            <!--Thông tin đấu giá-->
+            <div class="col-sm-12 col-md-6 col-lg-6" style="line-height: 30px;"> 
+                {{#each nguoiban}}
+                        <b>Người bán:</b> <a href="#">{{Username}}</a>
+                {{/each}}
+                <br>
+                {{#each sanpham}}
+                    <b>Giá bán:</b> 
+                    {{formatNumber GiaKhoiDiem}}đ
+                    <br>
+                    <b>Giá cao nhất hiện tại:</b>
+                    <span style="color: red; font-weight:bold;"> 
+                        {{#if GiaHienTai}}
+                            {{formatNumber GiaHienTai}}đ
+                        {{else}}
+                            Chưa có
+                        {{/if}}
+                    </span>
+                    <br>
+                    <b>Bước giá:</b>
+                    {{formatNumber BuocGia}}đ
+                    <br>
+                    {{#if GiaMuaNgay}}
+                        <b>Giá mua ngay:</b>
+                        <span style="color: red; font-weight:bold"> 
+                            {{formatNumber GiaMuaNgay}}đ
+                        </span>
+                    <br>
+                    {{/if}}
+                    Ngày đăng: {{formatTime NgayDang}}
+                    <br>
+                    Ngày hết hạn: {{formatTime ThoiGianHet}}
+                {{/each}}
+            </div>
+
+            <!--Thông tin chi tiết sản phẩm-->
+            <div class="col-md-6">
+                <div style="font-weight: bold; font-size: 15pt;margin-bottom: 5px;">
+                    Thông tin sản phẩm 
+                </div>
+                <ul>
+                    {{#each mota}}
+                    <li>{{NoiDung}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <!--Input đấu giá-->
+        {{#if layoutVM.isLogged}}
+        {{#ifCond banned 0}}
+        {{#ifCond layoutVM.curUser.permission 0}}
+        
+        <div class="row" >
+            {{#each sanpham}}
+            <form method="post" action="/sanpham/daugia/{{MaSP}}">
+                <div class="form-group">
+                    <label for="userprice"> Giá của bạn:</label>
+                    <input type="text" id="userprice" name="giaDG">
+                    <button type="submit" class="btn btn-danger" style="margin-left: 10px;">
+                        Đấu giá
+                    </button>
+                </div>  
+            </form>
+            {{/each}}
+            {{#if liked}}
+                {{#each sanpham}}
+                    <form class="form-horizontal" id="frmAddItem" method="post" action="/sanpham/huyyeuthich/{{MaSP}}">
+                        {{/each}}
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                    <button class="btn likebtn" type="submit" data-toggle="modal" data-target="#myModal" name="likebutton">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                        Đã thêm vào yêu thích
+                                    </button>
+                            </div>
+                        </div>
+                    </form>
+                {{else}}
+                {{#each sanpham}}
+                    <form class="form-horizontal" id="frmAddItem" method="post" action="/sanpham/themyeuthich/{{MaSP}}">
+                        {{/each}}
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                        <button class="btn likebtn" type="submit" data-toggle="modal" data-target="#myModal" name="likebutton">
+                                            <span class="glyphicon glyphicon-heart"></span>
+                                            Thêm vào yêu thích
+                                        </button>
+                                </div>
+                            </div>
+                    </form>
+            {{/if}}
+            {{/ifCond}}
+            {{#each sanpham}}
+            <a href="/sanpham/lichsudaugia/{{MaSP}}" style="display: inline-block;padding-left: 10px;"> Xem lịch sử đấu giá </a>
+            {{/each}}
+            
+        </div>
+        {{/ifCond}}
+        {{/if}}
+        
+    </div>
 </div>
-
