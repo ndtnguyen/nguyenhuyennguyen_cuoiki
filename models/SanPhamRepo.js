@@ -1,7 +1,7 @@
 var Q = require('q');
 var mustache = require('mustache');
 var db = require('../fn/db');
-
+var moment = require('moment');
 exports.loadPageByCat = function(id, limit, offset) {
 
     var deferred = Q.defer();

@@ -64,8 +64,9 @@ exports.loadPageByProduct_Sold = function(id,limit, offset) {
     promises.push(db.load(sqlCount));
    var sql = mustache.render('select * from sanpham s, nguoidung ng where s.NguoiDang = {{id}} and ng.MAKH = s.NguoiThangCuoc and s.NguoiThangCuoc !=0 limit {{limit}} offset {{offset}}', view);
     promises.push(db.load(sql));
-
+    console.log(sql);
     Q.all(promises).spread(function(totalRow, rows) {
+        console.log(rows);
         var data = {
             total: totalRow[0].total,
             list: rows
@@ -155,5 +156,64 @@ exports.kick = function(entity) {
     });
     
     
+    return deferred.promise;
+}
+
+exports.loadAllComment = function(id) {
+        var deferred = Q.defer();
+        var promises=[];
+        var sql = 'select * from danhgianguoidung dg , nguoidung nd where dg.NguoiDanhGia = nd.MaKH and dg.ChuTK =' + id;
+        promises.push(db.load(sql));
+        console.log(sql);
+        Q.all(promises).spread(function(rows) {
+            var data = {
+                list: rows,
+            }
+            console.log(data);
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+}
+exports.insertTocommentWinner = function(entity) {
+
+    var deferred = Q.defer();
+
+    var sql =
+        mustache.render(
+            'insert into danhgianguoidung (ChuTK,NguoiDanhGia,ThoiGian,DiemDangGia,NoiDung) values ("{{idNguoiThang}}",  "{{idNguoiBan}}", "{{ngay}}", "{{point}}",  "{{comment}}")',
+            entity
+        );
+
+    db.insert(sql).then(function(insertId) {
+        deferred.resolve(insertId);
+    });
+    return deferred.promise;
+}
+exports.loadCommentWinner = function(idNguoiThang, idNguoiBan)
+{
+     var deferred = Q.defer();
+
+    var promises = [];
+    var view = {
+        id: id,
+        limit: limit,
+        offset: offset,
+        time: moment().format('YYYY-MM-DD')
+    };
+    console.log( moment().format('YYYY-MM-DD'));
+    
+     var sqlCount = mustache.render('select count(*) as total from sanpham s, nguoidung ng where s.NguoiDang = {{id}} and s.NguoiThangCuoc != 0 and s.NguoiThangCuoc = ng.MaKH ', view);
+    promises.push(db.load(sqlCount));
+   var sql = mustache.render('select * from sanpham s, nguoidung ng where s.NguoiDang = {{id}} and ng.MAKH = s.NguoiThangCuoc and s.NguoiThangCuoc !=0 limit {{limit}} offset {{offset}}', view);
+    promises.push(db.load(sql));
+    console.log(sql);
+    Q.all(promises).spread(function(totalRow, rows) {
+        console.log(rows);
+        var data = {
+            total: totalRow[0].total,
+            list: rows
+        }
+        deferred.resolve(data);
+    });
     return deferred.promise;
 }

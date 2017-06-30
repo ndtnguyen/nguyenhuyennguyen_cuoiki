@@ -1,7 +1,8 @@
 {{#section 'css'}}
     <link rel="stylesheet" href="/assets/dist/css/swiper.min.css">
     <link href="/assets/site.css" rel="stylesheet" />
-    <style>   
+    <style>
+    
     body {
         background: #eee;
         font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -100,13 +101,13 @@
             document.getElementById("txt1").value = cmb.value;
             //document.getElementById("txt2").value = cmb.options[cmb.selectedIndex].text;    
         }
-        function file_change(f){
+        function file_change(f, id){
 
             var reader = new FileReader();
 
             reader.onload = function (e) {
 
-                var img = document.getElementById("img");
+                var img = document.getElementById(id);
 
                 img.src = e.target.result;
 
@@ -115,6 +116,7 @@
             };
 
             reader.readAsDataURL(f.files[0]);
+
             document.getElementById("image").value = f.value; }
     </script>
 {{/section}}
@@ -148,7 +150,7 @@
                             <strong>Warning!</strong> {{ errorMsg }}
                         </div>
                     {{/if}}
-                    <form class="form-horizontal" method="post" action="" id="frmAddNewProduct">
+                    <form class="form-horizontal" method="post" action="" id="frmAddNewProduct" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="txtProductName" class="col-sm-4 col-md-4 col-lg-4 control-label">Tên sản phẩm</label>
                             <div class="col-sm-7 ">
@@ -163,12 +165,46 @@
                                 <input type="number" min = "100" class="form-control" id="txtCost" placeholder= "Nhập giá khởi điểm" name="cost">
                             </div>
                         </div>
+                         <div class="form-group">
+                        
+                            <label class="col-sm-7 col-md-7 col-lg-7 control-label">Chọn ảnh đại diện cho sản phẩm</label>
+                        </div>
                         <div class="form-group">
-                            <label for="txtImage" class="col-sm-4 col-md-4 col-lg-4 control-label">Chọn ảnh đại diện cho sản phẩm</label>
+                            
                             <div class="col-sm-7 ">
-                                <input type ="hidden" id ="image" name ="image">
-                                <input id="f" type="file" onchange="file_change(this)" style="display: none" />
-                                <input type="button" value="Chọn ảnh" onclick="document.getElementById('f').click()" />
+                                <table>
+                                
+                                <tr>
+                                <td style="padding-right: 5px; padding-left: 70px;">
+                                    <img id="img" src ="/Imgs/placeholder.png" width="200px" height ="200px"/>
+                                </td>
+                                <td style="padding-right: 5px;">
+                                         <img id="img1" src ="/Imgs/placeholder.png"  width="200px" height ="200px"/>
+                                    </td>
+                                     <td style="padding-bottom: 7px;">
+                                         <img id="img2" src ="/Imgs/placeholder.png"  width="200px" height ="200px"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    
+                                    <td style="padding-right: 5px; padding-left: 100px;">
+                                        <input id="f" type="file" onchange="file_change(this, 'img')" style="display: none" name="image1" />
+                                        <center><input type="button" value="Chọn ảnh" onclick="document.getElementById('f').click()" /> </center>
+                                    </td>
+                                   <td>
+                                        <input id="f1" type="file" onchange="file_change(this,'img1')" style="display: none" name="image2" value="2" />
+                                        <center><input type="button" value="Chọn ảnh" onclick="document.getElementById('f1').click()"  /></center>
+                                    </td>
+                                   
+                                    <td>
+                                        <input id="f2" type="file" onchange="file_change(this,'img2')" style="display: none" name="image3" />
+                                         <center><input type="button" value="Chọn ảnh" onclick="document.getElementById('f2').click()" /> </center>
+                                    </td>
+                                   
+                                </tr>
+                                
+                               
+                                </table>
                             </div>
                         </div>
                         <div class="form-group">
@@ -197,7 +233,8 @@
                                  document.getElementById("txt1").value = cmb.value;
                                 function Show() {
                                     var cmb = document.getElementById("cmb");            
-                                    document.getElementById("txt1").value = cmb.value;             
+                                    document.getElementById("txt1").value = cmb.value;      
+                                   document.getElementById("image1").value = cmb.value;       
                                 }
                             </script>
                             </div>
@@ -233,11 +270,7 @@
                         </div>
                    </form>
             </div>
-            <div class="col-md-3" style= "margin-top: 20px; margin-left: -30px;">
-            <img id="img" style="display: none"  width="200px" height ="200px"/>
-            <br><br>
-            <center><b style="margin-top: 650px;">Ảnh minh họa</b></center>
-            </div>
+
      </div>
     </div>
     </div><!-- END COL-9--->

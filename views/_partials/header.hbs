@@ -1,9 +1,6 @@
 {{#section 'js'}}
     <script src="/assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
     <script src="/assets/jquery-validation-1.12.0/jquery.validate.min.js"></script>   
-    <script type="text/javascript">
-       document.getElementById()
-    </script>
 {{/section}}
 
 <div class="row heading">
@@ -19,9 +16,11 @@
   <!--Search input-->
   <div class="col-sm-4 col-md-4 col-lg-4 TimKiemSP">
     <div class="input-group">
-        <input type="text" class="form-control inputext" placeholder="Tìm danh mục, sản phẩm mong muốn.....">
+      <form id="frmTimKiem" method="post" action="/timkiem">
+        <input type="text" class="form-control inputext" placeholder="Tìm danh mục, sản phẩm mong muốn....." id="txtTimKiem" name = "key">
+        </form>
           <span class="input-group-btn">
-            <button class="btn btn-secondary inputext" type="button">Tìm kiếm</button>
+            <button class="btn btn-secondary inputext timkiem" type="button" id = "timkiem">Tìm kiếm</button>
           </span>
       </div>
   </div>

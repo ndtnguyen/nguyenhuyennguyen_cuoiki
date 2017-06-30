@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Reset mật khẩu</title>
+	<meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+</head>
+<body>
+<br>
+
+<div class="row">
+	 <div class="col-md-2"> </div>
+	 <div class="col-md-8"> 
+		<ul class="nav nav-pills">
+		  <li role="presentation"><a href="/admin/QuanLyDanhMuc">Quản lý danh mục</a></li>
+		  <li role="presentation"><a href="/admin/DuyetSanPham">Duyệt sản phẩm</a></li>
+		  <li role="presentation"><a href="/admin/DuyetNguoiDungduocBan">Nâng cấp người</a></li>
+		  <li role="presentation" class="active"><a href="/admin/ResetMatKhauNguoiDung">Reset mật khẩu</a></li>
+		</ul>
+	</div>
+	<div class="col-md-2"> </div>
+</div>
+
+<div class="row">
+	<div class="col-md-2"> </div>
+	 <div class="col-md-8"> 
+		<h1 style="text-align:left;">QUẢN TRỊ VIÊN RESET MẬT KHẨU NGƯỜI DÙNG</h1>
+	</div>
+	<div class="col-md-2"> </div>
+</div>
+
+<div class="row">
+ 	<div class="col-md-2"> </div>
+	<div class="col-md-8"> 
+		<form method="post" action="/admin/ResetMatKhauNguoiDung" id="frmDeleteCategory">
+		<input type="hidden" name="MaKH" id="txtMaKH">
+		<input type="hidden" name="Email" id="txtEmail">
+		<input type="hidden" name="ThoiGian" id="txtThoiGian">
+
+		</form>
+				<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Mã khách hàng</th>
+									<th>Tên khách hàng</th>
+									<th>Tài khoản</th>
+									<th>Email</th>
+									<th>Thời gian</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody>
+		{{#each nguoidungresetmatkhau}}
+			<tr>
+									<td>{{MaKH}}</td>
+									<td>{{TenKH}}</td>
+									<td>{{UserName}}</td>
+									<td>{{DiaChi}}</td>
+									<td>{{formatTime ThoiGian}}</td>
+									<td>
+										<a href="javascript:;" class="btn btn-xs btn-danger duyet" data-id="{{MaKH}}" data-id2 ="{{DiaChi}}" data-id3 = "{{formatTime ThoiGian}}">
+											Chưa duyệt
+										</a>
+									</td>
+								</tr>
+		{{/each}}
+		</tbody>
+			</table>
+		</div>
+
+	<div class="col-md-2"> </div>
+</div>
+	 <script type="text/javascript" src="/assets/jquery-3.2.0.min.js"></script>
+     <script type="text/javascript" src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+         <script type="text/javascript">
+     	$('.duyet').on('click', function()
+     	{
+
+     		var id = $(this).data('id');
+     		var email = $(this).data('id2');
+     		var thoigian = $(this).data('id3');
+     		$('#txtMaKH').val(id);
+     		$('#txtEmail').val(email);
+     		$('#txtThoiGian').val(thoigian);
+			$('#frmDeleteCategory').submit();
+
+     	});
+     </script>
+</body>
+</html>

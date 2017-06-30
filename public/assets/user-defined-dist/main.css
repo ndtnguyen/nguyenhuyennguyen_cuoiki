@@ -1,0 +1,110 @@
+    .heading {
+		background-color: #189EFF;
+		padding-top: 5px;
+
+		}
+    a {
+        color: #000 !important;
+    }
+	.navheading {
+		background-color:#189EFF;
+		padding: 0px;
+		border:0px;
+		border-radius: 0px;
+		color: #ffffff;
+	}
+	.logo {
+		font-size: 25pt;
+		font-weight: bold;
+		color: white;
+	}
+	
+	.ulcustom{
+		color: #ffffff;
+	}
+
+	.Danhmucsanpham{
+		color: white;
+	}
+	.detail-content {
+        background-color: white;
+        margin-bottom: 50px;
+        margin-top: 50px;
+        padding: 30px;
+        }
+
+    #Danhmuc{
+		background-color:#189EFF;
+    }
+		
+    .TimKiemSP{
+		padding-top: 8px;	
+	}
+		
+		.inputext{
+			font-size: 13px;
+			height: 40px;
+
+
+		}
+		#ChinhSachDauGia{
+			color: #189EFF;
+		}
+		.ThongTinDangKi{
+			padding-left: 63px;
+			padding-right: 63px;
+			font-size: 13px;
+		}
+		
+		.EditButtonLogin, .EditButtonExit{
+			padding: 14px;
+            margin-top: 20px !important;
+			
+		}
+		.EditButtonExit{
+			background-color: #189EFF;
+			color: #fff;
+			margin-left:200px;
+			padding-top: 10px;
+			padding-left: 10px;
+			
+		}
+		#btnTaiKhoan{
+			background-color: #189EFF;
+			border: 0px;
+			color: #fff;
+			margin-right: 3px;
+		}
+		
+		.dropdown-item
+		{
+			color: #000000;
+
+		}
+    .DanhMucChinh{
+      color: #fff;
+    }
+    .container-fluid{
+          height: 100%;
+        }
+    #Danhmuc{
+        height: 0%;
+      }
+    </style>
+    <link rel="stylesheet" href="dist/css/swiper.min.css">
+
+    <!-- Demo styles -->
+    <style>
+    html, body {
+        position: relative;
+        height: 100%;
+    }
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    </style>

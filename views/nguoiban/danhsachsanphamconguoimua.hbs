@@ -1,7 +1,8 @@
 {{#section 'css'}}
     <link rel="stylesheet" href="/assets/dist/css/swiper.min.css">
     <link href="/assets/site.css" rel="stylesheet" />
-    <style>  
+    <style>
+    
     body {
         background: #eee;
         font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -25,6 +26,15 @@
         color: #ffffff;
     }
     </style>
+{{/section}}
+
+{{#section 'js'}}
+<script type="text/javascript">
+ function DanhGia()
+   {
+    document.getElementById("DanhGiaNguoiThang").style.display = "block"; 
+   }
+</script>
 {{/section}}
 {{#if layoutVM.isLogged }}
 <div class="row">
@@ -50,6 +60,7 @@
                     Không có sản phẩm!
                             {{else}}
                     {{#each sanpham}}
+                    <div class= "row">
                     <div class="col-md-4">
                         <a href="/sanpham/chitiet/{{MaSP}}">
                             <div class="thumbnail ">
@@ -61,7 +72,7 @@
                                         </a>
                                         <p style="color: red;"><b>{{GiaKhoiDiem}} đ</b></p>
                                         <p> Người thắng: <b>{{TenKH}}</b></p>
-                                         <button type="button" class="btn btn-success " id="btnDanhGiaNguoiDung">
+                                         <button type="button" class="btn btn-success " id="btnDanhGiaNguoiDung" onclick="DanhGia();">
                                                     <i class="fa fa-check"></i>
                                                 Đánh giá người dùng
                                         </button>
@@ -69,7 +80,46 @@
                                 </center>
                             </div>
                         </a>
+                       
                     </div>
+                    </div>
+                    <div class="row">
+                         <div id="DanhGiaNguoiThang" style ="display:none;">
+                
+                                <center> <h2> ĐÁNH GIÁ NGƯỜI THẮNG</h2></center>
+                                <form class="form-horizontal"  id="frmDanhGiaNguoiThang" action ="/nguoiban/danhgianguoithang" method="post" >
+                                    <div class="form-group">
+                                         <input type="hidden" class="form-control" id="UserID"  value= "{{NguoiDang}}" name="idNguoiBan"/>
+                                        <label for="txtStep" class="col-sm-3 col-md-3 col-lg-3 control-label">Cho điểm người thắng: (-1 hoặc +1)</label>
+                                        <div class="col-sm-6 ">
+                                         <input type="hidden" class="form-control" id="NguoiBanID"  value= "{{NguoiThangCuoc}}" name="idNguoiThang"/>
+                                        
+                                            
+                                           <input type="number" name="point" min="-1" max="1" id="txtStep" name="step" class="form-control"  step="2" required="required">
+                                        </div>
+                                    </div>
+                                     <br>
+                                    <div class="form-group">
+                                        <label for="txtComment" class="col-sm-3 col-md-3 col-lg-3 control-label">Nhận xét</label>
+                                        <div class="col-sm-6 ">
+                                          <textarea rows="4" cols="63"  id="txtComment" name="comment" form="frmDanhGiaNguoiThang" required="required"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                         <div class="form-group">
+                                            <div class="col-sm-offset-5 col-sm-10">
+                                                <button type="submit" class="btn btn-success">
+                                                <i class="fa fa-check"></i>
+                                                    Gửi đánh giá
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                
+                            </div>
+                            </div>
                     {{/each}}
                     </div>
                     <center>

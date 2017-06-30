@@ -1,5 +1,6 @@
 var Q = require('q');
 var db = require('../fn/db');
+var mustache = require('mustache');
 
 exports.loadTrangChu = function() {
     console.log('load trang chu');
@@ -25,6 +26,110 @@ exports.loadTrangChu = function() {
             SPHet : rowsSPHet
         }
         deferred.resolve(data);
+    });
+    return deferred.promise;
+}
+
+exports.TimKiem = function(entity)
+{
+    var deferred = Q.defer();
+    console.log(entity);
+    var sql= mustache.render("select sp.* from sanpham sp, danhmuc dm, nguoidung nd where sp.DanhMuc = dm.MaDanhMuc and sp.NguoiDang = nd.MaKH and (dm.TenDanhMuc like '%{{key}}%' or sp.TenSP like '%{{key}}%' or nd.Username like '%{{key}}%'); ",
+     entity);
+    console.log(sql);
+
+    db.load(sql).then(function(rows){
+        if (rows.length > 0 )
+        {
+            var sp = 
+            {
+                SanPham: rows
+            }
+            console.log(sp);
+            deferred.resolve(sp);
+        }
+        else
+        {
+            deferred.resolve(null);
+        }
+    });
+    return deferred.promise;
+}
+
+exports.TimKiemTenDanhMuc = function(entity)
+{
+    var deferred = Q.defer();
+    console.log(entity);
+    var sql= mustache.render("select sp.* from sanpham sp, danhmuc dm, nguoidung nd where sp.DanhMuc = dm.MaDanhMuc and sp.NguoiDang = nd.MaKH and (dm.TenDanhMuc like '%{{key}}%'); ",
+     entity);
+    console.log(sql);
+
+    db.load(sql).then(function(rows){
+        if (rows.length > 0 )
+        {
+            var sp = 
+            {
+                SanPham: rows
+            }
+            console.log(sp);
+            deferred.resolve(sp);
+        }
+        else
+        {
+            deferred.resolve(null);
+        }
+    });
+    return deferred.promise;
+}
+
+exports.TimKiemTenSanPham = function(entity)
+{
+    var deferred = Q.defer();
+    console.log(entity);
+    var sql= mustache.render("select sp.* from sanpham sp, danhmuc dm, nguoidung nd where sp.DanhMuc = dm.MaDanhMuc and sp.NguoiDang = nd.MaKH and (sp.TenSP like '%{{key}}%');",
+     entity);
+    console.log(sql);
+
+    db.load(sql).then(function(rows){
+        if (rows.length > 0 )
+        {
+            var sp = 
+            {
+                SanPham: rows
+            }
+            console.log(sp);
+            deferred.resolve(sp);
+        }
+        else
+        {
+            deferred.resolve(null);
+        }
+    });
+    return deferred.promise;
+}
+
+exports.TimKiemTenUser = function(entity)
+{
+    var deferred = Q.defer();
+    console.log(entity);
+    var sql= mustache.render("select sp.* from sanpham sp, danhmuc dm, nguoidung nd where sp.DanhMuc = dm.MaDanhMuc and sp.NguoiDang = nd.MaKH and (nd.Username like '%{{key}}%');",
+     entity);
+    console.log(sql);
+
+    db.load(sql).then(function(rows){
+        if (rows.length > 0 )
+        {
+            var sp = 
+            {
+                SanPham: rows
+            }
+            console.log(sp);
+            deferred.resolve(sp);
+        }
+        else
+        {
+            deferred.resolve(null);
+        }
     });
     return deferred.promise;
 }

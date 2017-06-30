@@ -1,0 +1,30 @@
+{{#section 'css'}}
+<style type="text/css">
+	 .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+        color: black;
+        background-color: #fff;
+    }
+
+        .nav-pills > li.active > a:hover {
+            background-color: #efcb00;
+            color:black;
+        }
+</style>
+
+{{/section}}
+<div class="row">
+		<ul class="nav nav-pills">
+		  <li role="presentation"><a href="/timkiem">Tất cả</a></li>
+		  <li role="presentation" ><a href="/timkiem/TenDanhMuc">Danh mục</a></li>
+		  <li role="presentation" class="active"><a href="/timkiem/TenSanPham">Tên sản phẩm</a></li>
+		  <li role="presentation" ><a href="/timkiem/NguoiDang">Người đăng</a></li>
+		</ul>
+
+</div>
+<h2>KẾT QUẢ TÌM KIẾM</h2>
+{{#if showError }}
+    <div class="alert alert-warning alert-dismissible detail-content" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Thông báo!</strong> {{ errorMsg }}
+    </div>
+{{/if}}

@@ -1,0 +1,72 @@
+{{#section 'css'}}
+    <link rel="stylesheet" href="/assets/dist/css/swiper.min.css">
+    <link href="/assets/site.css" rel="stylesheet" />
+    <style>
+    
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+    #Infor {
+        margin-top: 40px;
+        
+    }
+    .inforL{
+        background:#189eff;
+    }
+    .title{
+        font-size:16px;
+        color: #ffffff;
+    }
+    #nameUser{
+        color: #ffffff;
+    }
+    </style>
+{{/section}}
+{{#if layoutVM.isLogged }}
+<div class="row">
+     <div class="col-md-3">
+        {{> nguoimua this }}
+    </div>
+    <br><br>
+    <div  class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: #189eff; color: white; font-size: 18px;font-weight: normal;line-height: 15px;">
+                Điểm đánh giá và nhận xét của người bán
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Tên người bán đã đánh giá</th>
+                        <th> Điểm đánh giá</th>
+                        <th> Nhận xét của người bán</th>
+
+                        <th>Thời gian đánh giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each comments }}
+                    <tr>
+                        <td>{{TenKH}}</td>
+                        <td>{{DiemDangGia}}</td>
+                        <td>{{NoiDung}}</td>
+                        <td>{{ formatTime ThoiGian}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+             </div>
+    </div>
+    </div>
+</div>
+<br>
+<br>
+{{else}}
+    <li><a href="/taikhoan/dangnhap">Đăng nhập</a></li>
+    <li><a href="/taikhoan/dangki">Đăng ký</a></li>
+{{/if}}

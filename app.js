@@ -14,6 +14,7 @@ var express = require('express'),
     TaiKhoanController = require('./controllers/TaiKhoanController');
 var NguoiMuaController = require('./controllers/NguoiMuaController');
 var NguoiBanController = require('./controllers/NguoiBanController');
+var AdminController = require('./controllers/AdminController');
 var app = express();
 var https = require('https');
 
@@ -35,8 +36,11 @@ app.engine('hbs', handlebars({
             });
             return nf.to(n);
         },
+        LayThoiGian: function() {
+            return moment().format('DMYYYYHHmm');
+        },
         formatTime: function(t) {
-            return moment(t).format('D/M/YYYY, h:mm:ss a');
+            return moment(t).format('YYYY-MM-DD HH:mm:ss');
         },
         ifCond: function(v1, v2, options) {
             if(v1 === v2) {
@@ -91,6 +95,7 @@ app.use('/sanpham', SanPhamController);
 app.use('/taikhoan', TaiKhoanController);
 app.use('/nguoimua', NguoiMuaController);
 app.use('/nguoiban',  NguoiBanController);
+app.use('/admin', AdminController);
 
 app.listen(3000);
 

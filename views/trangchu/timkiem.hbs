@@ -1,0 +1,91 @@
+{{#section 'css'}}
+<style type="text/css">
+	 .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+        color: black;
+        background-color: #fff;
+    }
+
+        .nav-pills > li.active > a:hover {
+            background-color: #efcb00;
+            color:black;
+        }
+</style>
+
+{{/section}}
+
+{{#section 'js'}}
+<script type="text/javascript">
+ $('#frmTimKiem').on('submit', function()
+ {
+    var key = $('#txtTimKiem').val(); 
+    console.log('key ne'); 
+    console.log(key); 
+    var a = document.getElementById('TatCa'); //or grab it by tagname etc
+    
+    var noi = "/timkiema/" + key; 
+    a.href = noi;
+ });
+
+//$("a[href='http://www.google.com/']").attr('href', 'http://www.live.com/')
+</script>
+  {{/section}}
+<div class="row">
+		<ul class="nav nav-pills">
+		  <li role="presentation" class="active" ><a href="/timkiem" id = "TatCa">Tất cả</a></li>
+		  <li role="presentation"><a href="/timkiem/TenDanhMuc">Danh mục</a></li>
+		  <li role="presentation"><a href="/timkiem/TenSanPham">Tên sản phẩm</a></li>
+		  <li role="presentation"><a href="/timkiem/NguoiDang">Người đăng</a></li>
+		</ul>
+
+</div>
+<h2>KẾT QUẢ TÌM KIẾM</h2>
+{{#if showError }}
+    <div class="alert alert-warning alert-dismissible detail-content" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Thông báo!</strong> {{ errorMsg }}
+    </div>
+{{/if}}
+ 	{{#each dssp}}
+ 		<div class="thumbnail">
+                                           <center style = "width: 300px; height: 300px; "> 
+                                               <a href="/sanpham/chitiet/{{MaSP}}" class="TenSanPham">
+                                             <img src="/Imgs/sp/{{MaSP}}/1.jpg" alt="{{TenSP}}" style="width: 60%;">
+                                              <div class="caption">
+                                                       {{TenSP}}   
+                                                  <div class="clockdiv" id="clock{{MaSP}}NN">
+                                                          <img src ="/imgs/Time.png" alt="Thời gian đấu giá"/>
+                                                          <div>
+                                                            <span class="days"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="hours"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="minutes"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                          <div>
+                                                            <span class="seconds"></span>
+                                                            <div class="smalltext"></div>
+                                                          </div>
+                                                   </div>
+
+                                                  <div class="Time">
+                                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ngày</div>
+                                                        <div>&nbsp;Giờ</div>
+                                                        <div>&nbsp;Phút</div>
+                                                        <div>Giây</div>   
+                                                  </div>
+                                                  <div class="row">
+                                                  <div class="col-md-6" style="text-align: right;">Giá hiện tại: </div>
+                                                  <div class="col-md-6" style="text-align: left; color: red;"">
+                                                     <b>{{formatNumber GiaHienTai}} ₫</b>
+                                                  </div>
+                                                    </div>
+                                              </div>
+                                              </a>
+                                           </center>
+                                          </div>
+ 	{{/each}}

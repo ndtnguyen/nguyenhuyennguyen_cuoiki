@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Duyệt quyền bán</title>
+	<meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+</head>
+<body>
+<br>
+<div class="row">
+	 <div class="col-md-2"> </div>
+	 <div class="col-md-8"> 
+		<ul class="nav nav-pills">
+		  <li role="presentation"><a href="/admin/QuanLyDanhMuc">Quản lý danh mục</a></li>
+		  <li role="presentation"><a href="/admin/DuyetSanPham">Duyệt sản phẩm</a></li>
+		  <li role="presentation" class="active"><a href="/admin/DuyetNguoiDungduocBan">Nâng cấp người</a></li>
+		  <li role="presentation"><a href="/admin/ResetMatKhauNguoiDung">Reset mật khẩu</a></li>
+		</ul>
+	</div>
+	<div class="col-md-2"> </div>
+</div>
+
+<div class="row">
+	<div class="col-md-2"> </div>
+	 <div class="col-md-8"> 
+		<h1 style="text-align:left;">QUẢN TRỊ VIÊN NÂNG CẤP NGƯỜI DÙNG ĐƯỢC QUYỀN BÁN</h1>
+	</div>
+	<div class="col-md-2"> </div>
+</div>
+
+<div class="row">
+<div class="col-md-2"> </div>
+	 <div class="col-md-8"> 
+				<form method="post" action="/admin/DuyetNguoiDungDuocBan" id="frmDeleteCategory">
+					<input type = 'hidden' name="MaKH" id="txtDelCatId">
+					<input type = 'hidden' name="Email" id="txtEmail">
+				</form>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Mã khách hàng</th>
+								<th>Tên khách hàng</th>
+								<th>Tài khoản</th>
+								<th>Email</th>
+								<th>Thời gian xin</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+	{{#each nguoidungxinban}}
+		<tr>
+								<td>{{MaKH}}</td>
+								<td>{{TenKH}}</td>
+								<td>{{UserName}}</td>
+								<td>{{DiaChi}}</td>
+								<td>{{formatTime ThoiGianXin}}</td>
+								<td>
+									<a href="javascript:;" class="btn btn-xs btn-danger duyet" data-id="{{MaKH}}" data-id2="{{DiaChi}}">
+											<p name = "nut"> Chưa duyệt </p>
+									</a>
+								</td>
+							</tr>
+	{{/each}}
+	</tbody>
+					</table>
+				</div>
+	<div class="col-md-2"> </div>
+</div>
+	 <script type="text/javascript" src="/assets/jquery-3.2.0.min.js"></script>
+     <script type="text/javascript" src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+     <script type="text/javascript">
+     	$('.duyet').on('click', function()
+     	{
+
+     		var id = $(this).data('id');
+  			var email = $(this).data('id2');
+     		$('#txtDelCatId').val(id);
+     		$('#txtEmail').val(email);
+			$('#frmDeleteCategory').submit();
+
+     	});
+     </script>
+</body>
+</html>

@@ -1,27 +1,6 @@
 <a href="/nguoiban/profile" class="list-group-item">Thông tin cá nhân</a>
 <a href="/nguoiban/chinhsuathongtincanhan" class="list-group-item">Chỉnh sửa thông tin cá nhân</a> 
 <a href="/nguoiban/dangsanphamlenban" class="list-group-item">Đăng sản phẩm lên bán</a>
- <form class="form-horizontal" method="post" action="/nguoimua/danhsachsanphamdathang" id="frmUserId2">
-<input type="hidden" class="form-control" id="txtID2" name="id" value= "{{ layoutVM.curUser.id }}" > 
-   <button type="submit" class="btn btn-defalt list-group-item" style=" background-color: #fff; border: none; font-size:14px;">
-            <i class="fa fa-check"></i>
-        Xem lịch sử ra giá
-     </button>
-  </form>
-
-
-    <form class="form-horizontal" method="post" action="/nguoiban/danhsachsanphamdadanglen" id="frmUserId3">
-  <input type="hidden" class="form-control" id="txtID3" name="id" value= "{{ layoutVM.curUser.id }}" > 
-     <button type="submit" class="btn btn-defalt list-group-item" style=" background-color: #fff; border: none;font-size:14px;">
-              <i class="fa fa-check"></i>
-          Danh sách sản phẩm đã đăng và còn hạn
-       </button>
-    </form>
-
- <form class="form-horizontal" method="post" action="/nguoiban/danhsachsanphamconguoimua" id="frmUserId4">
-  <input type="hidden" class="form-control" id="txtID4" name="id" value= "{{ layoutVM.curUser.id }}" > 
-     <button type="submit" class="btn btn-defalt list-group-item" style=" background-color: #fff; border: none;font-size:14px;">
-              <i class="fa fa-check"></i>
-          Danh sách sản phẩm đã có người mua
-       </button>
-</form>
+<a href="/nguoiban/danhsachsanphamdadanglen" class="list-group-item">Danh sách sản phẩm đã đăng và còn hạn</a>
+<a href="/nguoiban/xemdanhgia" class="list-group-item">Xem đánh giá người dùng đã đánh giá</a>
+<a href="/nguoiban/danhsachsanphamconguoimua" class="list-group-item">Danh sách sản phẩm đã có người mua</a>

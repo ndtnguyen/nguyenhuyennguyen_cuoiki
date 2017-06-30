@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Duyệt sản phẩm</title>
+	<meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+</head>
+<body>
+<br>
+<div class="row">
+	 <div class="col-md-2"> </div>
+	 <div class="col-md-8"> 
+		<ul class="nav nav-pills">
+		  <li role="presentation"><a href="/admin/QuanLyDanhMuc">Quản lý danh mục</a></li>
+		  <li role="presentation" class="active"><a href="/admin/DuyetSanPham">Duyệt sản phẩm</a></li>
+		  <li role="presentation"><a href="/admin/DuyetNguoiDungduocBan">Nâng cấp người</a></li>
+		  <li role="presentation"><a href="/admin/ResetMatKhauNguoiDung">Reset mật khẩu</a></li>
+		</ul>
+	</div>
+	<div class="col-md-2"> </div>
+</div>
+
+<div class="row">
+	<div class="col-md-2"> </div>
+	 <div class="col-md-8"> 
+		<h1 style="text-align:left;">QUẢN TRỊ VIÊN DUYỆT ĐĂNG NHỮNG SẢN PHẨM ĐẤU GIÁ</h1>
+	</div>
+	<div class="col-md-2"> </div>
+</div>
+
+<div class="row">
+<div class="col-md-2"> </div>
+	 <div class="col-md-8"> 
+				<form method="post" action="/admin/DuyetSanPham" id="frmDeleteCategory">
+					<input type="hidden" name="MaSP" id="txtDelCatId">
+				</form>
+					<table class="table table-hover">							
+						<thead>
+							<tr>
+								<th>Mã sản  phẩm</th>
+								<th>Tên sản phẩm</th>
+								<th>Tên người đăng</th>
+								<th>Giá khởi điểm</th>
+								<th>Loại sản phẩm</th>
+								<th>Bước giá</th>
+								<th>Ngày đăng</th>
+								<th>Thời gian hết</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+	{{#each sanpham}}
+		<tr>
+								<td>{{MaSP}}</td>
+								<td >{{TenSP}}</td>
+								<td >{{TenKH}}</td>
+								<td >{{GiaKhoiDiem}}</td>
+								<td >{{TenDanhMuc}}</td>
+								<td >{{BuocGia}}</td>
+								<td >{{formatTime NgayDang}}</td>
+								<td >{{formatTime ThoiGianHet}}</td>
+								<td>
+									<a href="javascript:;" class="btn btn-xs btn-danger duyet" data-id="{{MaSP}}">
+											Chưa duyệt
+									</a>
+								</td>
+		</tr>
+	{{/each}}
+	</tbody>
+					</table>
+				</div>
+	<div class="col-md-2"> </div>
+			</div>
+
+
+	 <script type="text/javascript" src="/assets/jquery-3.2.0.min.js"></script>
+     <script type="text/javascript" src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+     	<script type="text/javascript">
+		$('.duyet').on('click', function()
+		{
+			//(this).removeClass('btn-danger');
+     		//(this).addClass('btn-primary');
+     		//(this).Text("Đã duyệt");
+
+     		var id = $(this).data('id');
+     		console.log(id);
+     		$('#txtDelCatId').val(id);
+			$('#frmDeleteCategory').submit();
+
+		});
+	</script>
+</body>
+</html>

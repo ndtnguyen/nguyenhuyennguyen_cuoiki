@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Chỉnh sửa danh mục</title>
+		<meta charset="utf-8">
+		 <link rel="stylesheet" type="text/css" href="/assets/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+	</head>
+	<body>
+	<br>
+		{{#with danhmuc }}
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2"> </div>
+				<div class="col-md-8">
+					<h1>CHỈNH SỬA DANH MỤC</h1>
+				</div>
+				<div class="col-md-2"> </div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-2"> </div>
+				<div class="col-md-8">
+					<form method="post" action="/admin/QuanLyDanhMucChinhSua">
+						<div class="form-group">
+							<label for="txtCatID">Mã danh mục</label>
+							<input type="text" class="form-control" id="txtCatID" placeholder="name" name="catId" value="{{MaDanhMuc}}" readonly>
+						</div>
+						<div class="form-group">
+							<label for="txtCatName">Tên danh mục</label>
+							<input type="text" class="form-control" id="txtCatName" placeholder="name" name="catName" value="{{TenDanhMuc}}">
+						</div>
+						<a href="/admin/QuanLyDanhMuc" class="btn btn-default" title="back">
+							<span class="glyphicon glyphicon-backward"></span>
+						</a>
+						<button type="submit" class="btn btn-success">
+							<span class="glyphicon glyphicon-check"></span>
+						</button>
+					</form>
+				</div>
+				<div class="col-md-2"> </div>
+			</div>
+			<br/>
+		</div>
+		{{/with}}
+		<script type="text/javascript" src="/assets/jquery-3.2.0.min.js"></script>
+     <script type="text/javascript" src="/assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	</body>
+</html>
